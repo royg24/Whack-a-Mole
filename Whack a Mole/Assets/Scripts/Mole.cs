@@ -22,7 +22,8 @@ public class Mole : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(ShowHide(_startPosition, _endPosition));
+        //to make the mole show and hide
+        //StartCoroutine(ShowHide(_startPosition, _endPosition));
     }
 
     private void Awake()
