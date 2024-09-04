@@ -10,8 +10,8 @@ public class Mole : MonoBehaviour
     [SerializeField] private float outDuration = 1f;
     [SerializeField] private float hurtDuration = 0.75f;
     [SerializeField] private float quickHideDuration = 0.75f;
-    Vector3 _startPosition = new Vector3(0f, -2f, 0f);
-    Vector3 _endPosition = new Vector3(0f, 1f, 0f);
+    public Vector3 StartPosition { get; set; }
+    public Vector3 EndPosition { get; set; }
 
     [Header("Sprites")] 
     [SerializeField] private Sprite mole;
@@ -29,6 +29,9 @@ public class Mole : MonoBehaviour
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        //start and end position might change for different moles in the game managerS
+        StartPosition = new Vector3(0f, -2f, 0f);
+        EndPosition = new Vector3(0f, 1f, 0f);
     }
 
     // Update is called once per frame
@@ -69,7 +72,7 @@ public class Mole : MonoBehaviour
 
         if (!_hittable)
         {
-            yield return StartCoroutine(ShowHideLoop(_endPosition, _startPosition, quickHideDuration));
+            yield return StartCoroutine(ShowHideLoop(EndPosition, StartPosition, quickHideDuration));
             _spriteRenderer.sprite = mole;
         }
     }
