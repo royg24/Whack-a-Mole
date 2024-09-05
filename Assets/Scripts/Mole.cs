@@ -6,6 +6,8 @@ using UnityEngine.Serialization;
 
 public class Mole : MonoBehaviour
 {
+    public AudioSource audioSource; // לשים את רכיב ה-Audio Source כאן
+
     [SerializeField] private float showHideDuration = 1.5f;
     [SerializeField] private float outDuration = 1f;
     [SerializeField] private float hurtDuration = 0.75f;
@@ -110,6 +112,7 @@ public class Mole : MonoBehaviour
 
     private IEnumerator QuickHide()
     {
+        playSoundEffect();
         yield return new WaitForSeconds(hurtDuration);
 
         if (!_hittable)
@@ -129,6 +132,11 @@ public class Mole : MonoBehaviour
             StartCoroutine(QuickHide());
             _hittable = false;
         }
+    }
+
+    public void playSoundEffect()
+    {
+        audioSource.Play();
     }
 
 }
