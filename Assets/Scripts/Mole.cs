@@ -6,15 +6,16 @@ using UnityEngine.Serialization;
 
 public class Mole : MonoBehaviour
 {
-    public AudioSource audioSource; // לשים את רכיב ה-Audio Source כאן
-
+    public AudioSource audioSource; 
+    
     [SerializeField] private float showHideDuration = 1.5f;
     [SerializeField] private float outDuration = 1f;
     [SerializeField] private float hurtDuration = 0.75f;
     [SerializeField] private float quickHideDuration = 0.75f;
     [SerializeField] private Camera camera;
-    public Vector3 StartPosition { get; set; }
-    public Vector3 EndPosition { get; set; }
+
+    private Vector3 _startPosition;
+    private Vector3 _endPosition;
     private Vector3 _boxOffset;
     private Vector3 _boxSize;
     private Vector3 _boxOffsetHidden;
@@ -25,92 +26,58 @@ public class Mole : MonoBehaviour
     [SerializeField] private Sprite mole;
     [SerializeField] private Sprite hurtMole;
 
-    /*[Header("UI Objects")]
-    [SerializeField] private GameObject gameUI;
-    [SerializeField] private GameObject gameOver;
-    [SerializeField] private GameObject scoreHeader;
-    [SerializeField] private GameObject scoreText;
-    [SerializeField] private TMPro.TextMeshProUGUI timeHeader;
-    [SerializeField] private TMPro.TextMeshProUGUI TimeText;*/
-
-    //private float startingTime = 30f;
-    //private float timeRemaining;
-    //private HashSet<Mole> currentMoles = new HashSet<Mole>();
-    //private int score;
 
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
     private BoxCollider2D _boxCollider2D;
     private bool _hittable = true;
+
     // Start is called before the first frame update
 
     void Start()
     {
-        //to make the mole show and hide
-    }
-
-    // public void StartGame()
-    //{
-    //  for (int i=0;i<moles.Count;i++)
-    // {
-    //    moles[i].Hide
-    //}
-    //}
-
-    //public void GameOver(int type)
-    //{
-    //show the massege
-    //  if (type == 0)
-    //    gameOver.SetActive(true);
-
-    //Hide all moles
-    //foreach Mole mole in moles
-    //  mole.StopGame();
-    // }
-
-    //public void AddScore(int moleIndex)
-    //{
-    //    //Add and update score
-    //    score += 1;
-    //    scoreText.text = $"{score}";
-    //    //Remove from active moles
-    //    //currentMoles.Remove(moles[moleIndex]);
-    //}
-
-    private void Awake()
-    {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        camera = Camera.main;
         _animator = GetComponent<Animator>();
+        _startPosition = transform.localPosition;
+        _startPosition.y -= 2f;
+        _endPosition = transform.localPosition;
+        _endPosition.y++;
         _boxCollider2D = GetComponent<BoxCollider2D>();
         _boxOffset = _boxCollider2D.offset;
         _boxSize = _boxCollider2D.size;
-        _boxOffsetHidden = new Vector3(_boxOffset.x, -StartPosition.y / 2f, 0f);
+        _boxOffsetHidden = new Vector3(_boxOffset.x, -_startPosition.y / 2f, 0f);
         _boxSizeHidden = new Vector3(_boxOffset.x, 0f, 0f);
-        //start and end position might change for different moles in the game managerS
-        StartPosition = new Vector3(0f, -2f, 0f);
-        EndPosition = new Vector3(0f, 1f, 0f);
-        StartCoroutine(ShowHide());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
+    private void Awake()
+    {
+       
+    }
+
+    public void ActivateMole()
+    {
+        _boxCollider2D.enabled = true;
+        //Debug.Log(String.Format("Position = {0}\nStart position = {1}\n End position = {2}",transform.localPosition, _startPosition, _endPosition));
+        StartCoroutine(ShowHide());
     }
 
     private IEnumerator ShowHide()
     {
-        transform.localPosition = StartPosition;
+
+        transform.localPosition = _startPosition;
 
         //show the mole
-        yield return StartCoroutine(ShowHideLoop(StartPosition, EndPosition, showHideDuration, 
+        yield return StartCoroutine(ShowHideLoop(_startPosition, _endPosition, showHideDuration, 
             _boxOffsetHidden, _boxOffset, _boxSizeHidden, _boxSize));
 
         //let the mole be out of the hole
         yield return new WaitForSeconds(outDuration);
 
         //hide the mole
-        yield return StartCoroutine(ShowHideLoop(EndPosition, StartPosition, showHideDuration, 
+
+        yield return StartCoroutine(ShowHideLoop(_endPosition, _startPosition, showHideDuration, 
             _boxOffset, _boxOffsetHidden, _boxSize, _boxSizeHidden));
     }
 
@@ -138,7 +105,7 @@ public class Mole : MonoBehaviour
 
         if (!_hittable)
         {
-            yield return StartCoroutine(ShowHideLoop(EndPosition, StartPosition, quickHideDuration, 
+            yield return StartCoroutine(ShowHideLoop(_endPosition, _startPosition, quickHideDuration, 
                 _boxOffset, _boxOffsetHidden, _boxSize, _boxSizeHidden));
             _spriteRenderer.sprite = mole;
         }
@@ -154,18 +121,16 @@ public class Mole : MonoBehaviour
             {
                 _hittable = false;
                 _spriteRenderer.sprite = hurtMole;
+                _boxCollider2D.enabled = false;
+                GameManager.Instance.AddScore();
                 StopAllCoroutines();
                 StartCoroutine(QuickHide());
             }
         }
     }
 
-<<<<<<< HEAD
     public void playSoundEffect()
     {
         audioSource.Play();
     }
-=======
->>>>>>> 4db8db4fced8aa92a8b4e78602be895b86515f3a
-
 }
