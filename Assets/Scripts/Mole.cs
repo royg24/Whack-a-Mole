@@ -17,14 +17,55 @@ public class Mole : MonoBehaviour
     [SerializeField] private Sprite mole;
     [SerializeField] private Sprite hurtMole;
 
+    [Header("UI Objects")]
+    [SerializeField] private GameObject gameUI;
+    [SerializeField] private GameObject gameOver;
+    [SerializeField] private GameObject scoreHeader;
+    [SerializeField] private GameObject scoreText;
+    [SerializeField] private TMPro.TextMeshProUGUI timeHeader;
+    [SerializeField] private TMPro.TextMeshProUGUI TimeText;
+
+    private float startingTime = 30f;
+    private float timeRemaining;
+    private HashSet<Mole> currentMoles = new HashSet<Mole>();
+    private int score;
+
     private SpriteRenderer _spriteRenderer;
     private bool _hittable = true;
     // Start is called before the first frame update
+
     void Start()
     {
         //to make the mole show and hide
-        //StartCoroutine(ShowHide(_startPosition, _endPosition));
     }
+
+    // public void StartGame()
+    //{
+    //  for (int i=0;i<moles.Count;i++)
+    // {
+    //    moles[i].Hide
+    //}
+    //}
+
+    //public void GameOver(int type)
+    //{
+    //show the massege
+    //  if (type == 0)
+    //    gameOver.SetActive(true);
+
+    //Hide all moles
+    //foreach Mole mole in moles
+    //  mole.StopGame();
+    // }
+
+    //public void AddScore(int moleIndex)
+    //{
+    //    //Add and update score
+    //    score += 1;
+    //    scoreText.text = $"{score}";
+    //    //Remove from active moles
+    //    //currentMoles.Remove(moles[moleIndex]);
+    //}
 
     private void Awake()
     {
@@ -32,6 +73,7 @@ public class Mole : MonoBehaviour
         //start and end position might change for different moles in the game managerS
         StartPosition = new Vector3(0f, -2f, 0f);
         EndPosition = new Vector3(0f, 1f, 0f);
+        StartCoroutine(ShowHide(StartPosition, EndPosition));
     }
 
     // Update is called once per frame
