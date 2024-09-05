@@ -45,6 +45,10 @@ public class Mole : MonoBehaviour
     void Start()
     {
         //to make the mole show and hide
+<<<<<<< Updated upstream
+=======
+        StartCoroutine(ShowHide(StartPosition, EndPosition));
+>>>>>>> Stashed changes
     }
 
     // public void StartGame()
@@ -145,6 +149,7 @@ public class Mole : MonoBehaviour
         // Only proceed if the mole is hittable
         if (_hittable)
         {
+<<<<<<< Updated upstream
             Vector3 clickPosition = camera.ScreenToWorldPoint(Input.mousePosition);
 
             if (clickPosition.y > transform.position.y)
@@ -154,6 +159,14 @@ public class Mole : MonoBehaviour
                 StopAllCoroutines();
                 StartCoroutine(QuickHide());
             }
+=======
+            _hittable = false;
+            Debug.Log("trigger");
+            _spriteRenderer.sprite = hurtMole;
+            StopAllCoroutines();
+            StartCoroutine(QuickHide());
+            _hittable = false;
+>>>>>>> Stashed changes
         }
     }
 
