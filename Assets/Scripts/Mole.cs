@@ -10,27 +10,35 @@ public class Mole : MonoBehaviour
     [SerializeField] private float outDuration = 1f;
     [SerializeField] private float hurtDuration = 0.75f;
     [SerializeField] private float quickHideDuration = 0.75f;
+    [SerializeField] private Camera camera;
     public Vector3 StartPosition { get; set; }
     public Vector3 EndPosition { get; set; }
+    private Vector3 _boxOffset;
+    private Vector3 _boxSize;
+    private Vector3 _boxOffsetHidden;
+    private Vector3 _boxSizeHidden;
+
 
     [Header("Sprites")] 
     [SerializeField] private Sprite mole;
     [SerializeField] private Sprite hurtMole;
 
-    [Header("UI Objects")]
+    /*[Header("UI Objects")]
     [SerializeField] private GameObject gameUI;
     [SerializeField] private GameObject gameOver;
     [SerializeField] private GameObject scoreHeader;
     [SerializeField] private GameObject scoreText;
     [SerializeField] private TMPro.TextMeshProUGUI timeHeader;
-    [SerializeField] private TMPro.TextMeshProUGUI TimeText;
+    [SerializeField] private TMPro.TextMeshProUGUI TimeText;*/
 
-    private float startingTime = 30f;
-    private float timeRemaining;
-    private HashSet<Mole> currentMoles = new HashSet<Mole>();
-    private int score;
+    //private float startingTime = 30f;
+    //private float timeRemaining;
+    //private HashSet<Mole> currentMoles = new HashSet<Mole>();
+    //private int score;
 
     private SpriteRenderer _spriteRenderer;
+    private Animator _animator;
+    private BoxCollider2D _boxCollider2D;
     private bool _hittable = true;
     // Start is called before the first frame update
 
@@ -70,10 +78,16 @@ public class Mole : MonoBehaviour
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _animator = GetComponent<Animator>();
+        _boxCollider2D = GetComponent<BoxCollider2D>();
+        _boxOffset = _boxCollider2D.offset;
+        _boxSize = _boxCollider2D.size;
+        _boxOffsetHidden = new Vector3(_boxOffset.x, -StartPosition.y / 2f, 0f);
+        _boxSizeHidden = new Vector3(_boxOffset.x, 0f, 0f);
         //start and end position might change for different moles in the game managerS
         StartPosition = new Vector3(0f, -2f, 0f);
         EndPosition = new Vector3(0f, 1f, 0f);
-        StartCoroutine(ShowHide(StartPosition, EndPosition));
+        StartCoroutine(ShowHide());
     }
 
     // Update is called once per frame
@@ -82,30 +96,37 @@ public class Mole : MonoBehaviour
 
     }
 
-    private IEnumerator ShowHide(Vector3 startPosition, Vector3 endPosition)
+    private IEnumerator ShowHide()
     {
-        transform.localPosition = startPosition;
+        transform.localPosition = StartPosition;
 
         //show the mole
-        yield return StartCoroutine(ShowHideLoop(startPosition, endPosition, showHideDuration));
+        yield return StartCoroutine(ShowHideLoop(StartPosition, EndPosition, showHideDuration, 
+            _boxOffsetHidden, _boxOffset, _boxSizeHidden, _boxSize));
 
         //let the mole be out of the hole
         yield return new WaitForSeconds(outDuration);
 
         //hide the mole
-        yield return StartCoroutine(ShowHideLoop(endPosition, startPosition, showHideDuration));
+        yield return StartCoroutine(ShowHideLoop(EndPosition, StartPosition, showHideDuration, 
+            _boxOffset, _boxOffsetHidden, _boxSize, _boxSizeHidden));
     }
 
-    private IEnumerator ShowHideLoop(Vector3 startPosition, Vector3 endPosition, float showDuration)
+    private IEnumerator ShowHideLoop(Vector3 startPosition, Vector3 endPosition, float showDuration,
+        Vector3 offsetHidden, Vector3 offset, Vector3 sizeHidden, Vector3 size)
     {
         float elapsed = 0f;
         while (elapsed < showDuration)
         {
             transform.localPosition = Vector3.Lerp(startPosition, endPosition, elapsed / showDuration);
+            _boxCollider2D.offset = Vector3.Lerp(offsetHidden, offset, elapsed / showDuration);
+            _boxCollider2D.size = Vector3.Lerp(sizeHidden, size, elapsed / showDuration);
             elapsed += Time.deltaTime;
             yield return null;
         }
         transform.localPosition = endPosition;
+        _boxCollider2D.offset = offset;
+        _boxCollider2D.size = size;
     }
 
     private IEnumerator QuickHide()
@@ -114,21 +135,27 @@ public class Mole : MonoBehaviour
 
         if (!_hittable)
         {
-            yield return StartCoroutine(ShowHideLoop(EndPosition, StartPosition, quickHideDuration));
+            yield return StartCoroutine(ShowHideLoop(EndPosition, StartPosition, quickHideDuration, 
+                _boxOffset, _boxOffsetHidden, _boxSize, _boxSizeHidden));
             _spriteRenderer.sprite = mole;
         }
     }
-
     private void OnMouseDown()
     {
+        // Only proceed if the mole is hittable
         if (_hittable)
         {
-            _hittable = false;
-            _spriteRenderer.sprite = hurtMole;
-            StopAllCoroutines();
-            StartCoroutine(QuickHide());
-            _hittable = false;
+            Vector3 clickPosition = camera.ScreenToWorldPoint(Input.mousePosition);
+
+            if (clickPosition.y > transform.position.y)
+            {
+                _hittable = false;
+                _spriteRenderer.sprite = hurtMole;
+                StopAllCoroutines();
+                StartCoroutine(QuickHide());
+            }
         }
     }
+
 
 }
