@@ -1,22 +1,21 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class GameManager : Singleton<GameManager>
 {
     public static GameManager Instance { get; private set; }
-    [SerializeField] private List<Mole> moles;
-    [SerializeField] private Mole molePrefab;
+    [SerializeField] private List<MoleHole> moleHoles;
+    [SerializeField] private MoleHole moleHolePrefab;
+    private HashSet<MoleHole> _activeMoleHoles;
     private const float StartingTime = 60f;
     private float _timeRemaining;
+    private float _timer;
     private int _score;
     private bool _playing;
+
     [Header("UI Objects")] 
     [SerializeField] private GameObject startButton;
     [SerializeField] private GameObject gameUI;
@@ -25,6 +24,10 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI timeHeader;
     [SerializeField] private TextMeshProUGUI timeText;
+
+    [Header("Audio")] 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip hammerSound;
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +44,6 @@ public class GameManager : Singleton<GameManager>
         if (Instance == null)
         {
             Instance = Singleton<GameManager>.Instance;
-            SetMolesPositions();
         }
         else
         {
@@ -53,6 +55,7 @@ public class GameManager : Singleton<GameManager>
     {      
           startButton.SetActive(false);
           _timeRemaining = StartingTime;
+          _timer = 0f;
           _score = 0;
           _playing = true;
           scoreHeader.gameObject.SetActive(true);
@@ -61,23 +64,24 @@ public class GameManager : Singleton<GameManager>
           timeText.gameObject.SetActive(true);
           timeText.text  = Mathf.RoundToInt(StartingTime).ToString();
           scoreText.text = "000";
-          var moleIndex = Random.Range(0, moles.Count);
-          Debug.Log(moleIndex);
-          moles[moleIndex].ActivateMole();
+          _activeMoleHoles = new HashSet<MoleHole>();
+          CreateMoleHoles();
     }
 
-    private void SetMolesPositions()
+    private void CreateMoleHoles()
     {
-        moles = new List<Mole>();
-        var horizontalIntervale = 4;
+        moleHoles = new List<MoleHole>();
+        var horizontalInterval = 4;
         var verticalInterval = 3;
     
         for (var i = 1; i > -2; i--)
         {
             for (var j = -1; j < 2; j++)
             {
-                var mole = Instantiate(molePrefab, new Vector3(j * horizontalIntervale, i * verticalInterval, 0), quaternion.identity);
-                moles.Add(mole);
+                var moleHole = Instantiate(moleHolePrefab,
+                    new Vector3(j * horizontalInterval, i * verticalInterval, 0),
+                    quaternion.identity);
+                moleHoles.Add(moleHole);
             }
         }
     }
@@ -90,6 +94,7 @@ public class GameManager : Singleton<GameManager>
         {
             _timeRemaining -= Time.deltaTime;
             timeText.text = Mathf.RoundToInt(_timeRemaining).ToString();
+
             if (_timeRemaining <= 0)
             {
                 _timeRemaining = 0;
@@ -97,16 +102,45 @@ public class GameManager : Singleton<GameManager>
             }
             else
             {
-                //var moleIndex = Random.Range(0, moles.Count);
-                //moles[moleIndex].ActivateMole();
+                _timer += Time.deltaTime;
+                if(Input.GetMouseButtonDown(0))
+                    PlaySoundEffect(audioSource, hammerSound);
+                if (_timer >= Mole.Delay)
+                {
+                    ActivateRandomMoleHole();
+                    _timer = 0f;
+                }
+
                 scoreText.text = _score.ToString("D3");
             }
         }
     }
 
+    private void ActivateRandomMoleHole()
+    {
+        var moleHoleIndex = Random.Range(0, moleHoles.Count);
+        var currentMoleHole = moleHoles[moleHoleIndex];
+
+        if (!_activeMoleHoles.Contains(currentMoleHole))
+        {
+            _activeMoleHoles.Add(currentMoleHole);
+            currentMoleHole.ActivateMoleHole();
+        }
+    }
+
+    public void InactivateMoleHole(MoleHole moleHole)
+    {
+        _activeMoleHoles.Remove(moleHole);
+    }
+
     public void AddScore()
     {
         _score += 10;
+    }
+
+    public static void PlaySoundEffect(AudioSource audioSource, AudioClip sound)
+    {
+        audioSource.PlayOneShot(sound);
     }
 
     void GameOver()

@@ -1,19 +1,18 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Mole : MonoBehaviour
 {
-    public AudioSource audioSource; 
-    
+    private Camera camera;
+
+    [Header("ShowHide")]
     [SerializeField] private float showHideDuration = 1.5f;
     [SerializeField] private float outDuration = 1f;
     [SerializeField] private float hurtDuration = 0.75f;
     [SerializeField] private float quickHideDuration = 0.75f;
-    [SerializeField] private Camera camera;
+    public static float Delay { get; private set; }
 
+    [Header("Positions")]
     private Vector3 _startPosition;
     private Vector3 _endPosition;
     private Vector3 _boxOffset;
@@ -21,14 +20,16 @@ public class Mole : MonoBehaviour
     private Vector3 _boxOffsetHidden;
     private Vector3 _boxSizeHidden;
 
-
     [Header("Sprites")] 
     [SerializeField] private Sprite mole;
     [SerializeField] private Sprite hurtMole;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip hitSound;
 
+    private MoleHole _parent;
     private SpriteRenderer _spriteRenderer;
-    private Animator _animator;
     private BoxCollider2D _boxCollider2D;
     private bool _hittable = true;
 
@@ -36,14 +37,19 @@ public class Mole : MonoBehaviour
 
     void Start()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        camera = Camera.main;
-        _animator = GetComponent<Animator>();
-        _startPosition = transform.localPosition;
-        _startPosition.y -= 2f;
-        _endPosition = transform.localPosition;
-        _endPosition.y++;
+        Delay = showHideDuration;
+    }
+
+
+    private void Awake()
+    {
+        _spriteRenderer = GetComponent<SpriteRenderer>();  
         _boxCollider2D = GetComponent<BoxCollider2D>();
+        _parent = GetComponentInParent<MoleHole>();
+        camera = Camera.main;
+        _startPosition = new Vector3(0, -2.56f, 0);
+        _endPosition = Vector3.zero;
+        transform.localPosition = _startPosition;
         _boxOffset = _boxCollider2D.offset;
         _boxSize = _boxCollider2D.size;
         _boxOffsetHidden = new Vector3(_boxOffset.x, -_startPosition.y / 2f, 0f);
@@ -51,15 +57,8 @@ public class Mole : MonoBehaviour
     }
 
 
-    private void Awake()
-    {
-       
-    }
-
     public void ActivateMole()
     {
-        _boxCollider2D.enabled = true;
-        //Debug.Log(String.Format("Position = {0}\nStart position = {1}\n End position = {2}",transform.localPosition, _startPosition, _endPosition));
         StartCoroutine(ShowHide());
     }
 
@@ -100,14 +99,16 @@ public class Mole : MonoBehaviour
 
     private IEnumerator QuickHide()
     {
-        playSoundEffect();
+        GameManager.PlaySoundEffect(audioSource, hitSound);
         yield return new WaitForSeconds(hurtDuration);
 
         if (!_hittable)
         {
-            yield return StartCoroutine(ShowHideLoop(_endPosition, _startPosition, quickHideDuration, 
+            yield return StartCoroutine(ShowHideLoop(transform.localPosition, _startPosition, quickHideDuration, 
                 _boxOffset, _boxOffsetHidden, _boxSize, _boxSizeHidden));
             _spriteRenderer.sprite = mole;
+            _hittable = true;
+            _parent.InactivateMole();
         }
     }
     private void OnMouseDown()
@@ -116,12 +117,10 @@ public class Mole : MonoBehaviour
         if (_hittable)
         {
             Vector3 clickPosition = camera.ScreenToWorldPoint(Input.mousePosition);
-
             if (clickPosition.y > transform.position.y)
             {
                 _hittable = false;
                 _spriteRenderer.sprite = hurtMole;
-                _boxCollider2D.enabled = false;
                 GameManager.Instance.AddScore();
                 StopAllCoroutines();
                 StartCoroutine(QuickHide());
@@ -129,8 +128,4 @@ public class Mole : MonoBehaviour
         }
     }
 
-    public void playSoundEffect()
-    {
-        audioSource.Play();
-    }
 }
