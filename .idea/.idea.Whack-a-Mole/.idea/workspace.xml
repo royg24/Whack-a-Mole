@@ -5,22 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c283104-8f88-494d-9368-6cd32dcc6e34" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Whack-a-Mole/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Whack-a-Mole/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/MoleHole.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/MoleHole.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/MolePrefab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/MolePrefab.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/MolePrefab.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/MolePrefab.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Mole.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Mole.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/HoleBack.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/HoleBack.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/HoleBack.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/HoleBack.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Mole.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Mole.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Mole.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Mole.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/MoleHit.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/MoleHit.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/bananaSound.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/bananaSound.mp3.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +104,7 @@
       <workItem from="1725535005893" duration="19705000" />
       <workItem from="1725608426749" duration="280000" />
       <workItem from="1725610082490" duration="2792000" />
-      <workItem from="1725629286010" duration="26693000" />
+      <workItem from="1725629286010" duration="27565000" />
     </task>
     <servers />
   </component>

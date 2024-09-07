@@ -99,11 +99,11 @@ public class Mole : MonoBehaviour
 
     private IEnumerator QuickHide()
     {
-        GameManager.PlaySoundEffect(audioSource, hitSound);
         yield return new WaitForSeconds(hurtDuration);
 
         if (!_hittable)
         {
+            GameManager.PlaySoundEffect(audioSource, hitSound);
             yield return StartCoroutine(ShowHideLoop(transform.localPosition, _startPosition, quickHideDuration, 
                 _boxOffset, _boxOffsetHidden, _boxSize, _boxSizeHidden));
             _spriteRenderer.sprite = mole;
