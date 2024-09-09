@@ -15,6 +15,7 @@ public class GameManager : Singleton<GameManager>
     private float _timer;
     private int _score;
     private bool _playing;
+    private int _highScore;
 
     [Header("UI Objects")] 
     [SerializeField] private GameObject startButton;
@@ -25,11 +26,18 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI timeHeader;
     [SerializeField] private TextMeshProUGUI timeText;
+    [SerializeField] private TextMeshProUGUI highScoreText;
 
     [Header("Audio")] 
     [SerializeField] private AudioSource gameAudioSource;
     [SerializeField] private AudioSource instantAudioSource;
     [SerializeField] private AudioClip hammerSound;
+
+
+    public void UpdateHighScore(int newHighScore)
+    {
+        highScoreText.text = newHighScore.ToString();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +49,8 @@ public class GameManager : Singleton<GameManager>
         timeText.gameObject.SetActive(false);
         gameOverText.gameObject.SetActive(false);
         gameAudioSource.Play();
+        highScoreText.gameObject.SetActive(true);
+        UpdateHighScore(_highScore);
     }
 
     private void Awake()
@@ -148,6 +158,12 @@ public class GameManager : Singleton<GameManager>
     public void AddScore()
     {
         _score += 10;
+
+        if (_score >= _highScore)
+        {
+            _highScore = _score;
+            UpdateHighScore(_highScore);
+        }
     }
 
     public static void PlaySoundEffect(AudioSource audioSource, AudioClip sound)

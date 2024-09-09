@@ -206,8 +206,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
-<<<<<<< HEAD
-=======
 --- !u!1 &62365994
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,7 +356,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 1
   m_SpriteSortPoint: 0
->>>>>>> 4db8db4fced8aa92a8b4e78602be895b86515f3a
 --- !u!1 &99005313
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,8 +440,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
-<<<<<<< HEAD
-=======
 --- !u!1 &99689943
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,7 +590,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 1
   m_SpriteSortPoint: 0
->>>>>>> 4db8db4fced8aa92a8b4e78602be895b86515f3a
 --- !u!1 &198311726
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,8 +673,6 @@ SpriteMask:
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 0
   m_SpriteSortPoint: 0
-<<<<<<< HEAD
-=======
 --- !u!1 &284614646
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,7 +823,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.56, y: 2.56}
   m_EdgeRadius: 0
->>>>>>> 4db8db4fced8aa92a8b4e78602be895b86515f3a
 --- !u!1 &317706460
 GameObject:
   m_ObjectHideFlags: 0
@@ -2390,17 +2381,7 @@ MonoBehaviour:
   camera: {fileID: 519420031}
   mole: {fileID: 21300000, guid: 0075261ef0ed5094ea5e8d889d0b03f1, type: 3}
   hurtMole: {fileID: 21300000, guid: 54a59994167ce374fb2f5363cf60f1b3, type: 3}
-<<<<<<< HEAD
-  gameUI: {fileID: 0}
-  gameOver: {fileID: 0}
-  scoreHeader: {fileID: 0}
-  scoreText: {fileID: 0}
-  timeHeader: {fileID: 0}
-  TimeText: {fileID: 0}
---- !u!212 &809365145
-=======
 --- !u!212 &828239184
->>>>>>> 4db8db4fced8aa92a8b4e78602be895b86515f3a
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2585,9 +2566,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  m_Material: {fileID: 0}
-=======
   showHideDuration: 1.5
   outDuration: 1
   hurtDuration: 0.75
@@ -2787,7 +2765,6 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 0075261ef0ed5094ea5e8d889d0b03f1, type: 3}
->>>>>>> 4db8db4fced8aa92a8b4e78602be895b86515f3a
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -4659,8 +4636,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
-<<<<<<< HEAD
-=======
 --- !u!1 &1428632299
 GameObject:
   m_ObjectHideFlags: 0
@@ -4811,7 +4786,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 1
   m_SpriteSortPoint: 0
->>>>>>> 4db8db4fced8aa92a8b4e78602be895b86515f3a
 --- !u!1 &1429979693
 GameObject:
   m_ObjectHideFlags: 0
@@ -7058,8 +7032,6 @@ SpriteMask:
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 0
   m_SpriteSortPoint: 0
-<<<<<<< HEAD
-=======
 --- !u!1 &1996154529
 GameObject:
   m_ObjectHideFlags: 0
@@ -7360,7 +7332,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 1
   m_SpriteSortPoint: 0
->>>>>>> 4db8db4fced8aa92a8b4e78602be895b86515f3a
 --- !u!1 &2118490276
 GameObject:
   m_ObjectHideFlags: 0
