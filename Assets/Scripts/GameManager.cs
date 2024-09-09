@@ -6,11 +6,11 @@ using Random = UnityEngine.Random;
 
 public class GameManager : Singleton<GameManager>
 {
-    public static GameManager Instance { get; private set; }
+    public static GameManager GameManagerInstance { get; private set; }
     [SerializeField] private List<MoleHole> moleHoles;
     [SerializeField] private MoleHole moleHolePrefab;
     private HashSet<MoleHole> _activeMoleHoles;
-    private const float StartingTime = 60f;
+    private const float StartingTime = 10f;
     private float _timeRemaining;
     private float _timer;
     private int _score;
@@ -18,6 +18,7 @@ public class GameManager : Singleton<GameManager>
 
     [Header("UI Objects")] 
     [SerializeField] private GameObject startButton;
+    [SerializeField] private GameObject restartButton;
     [SerializeField] private GameObject gameUI;
     [SerializeField] private GameObject gameOverText;
     [SerializeField] private TextMeshProUGUI scoreHeader;
@@ -26,24 +27,27 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private TextMeshProUGUI timeText;
 
     [Header("Audio")] 
-    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource gameAudioSource;
+    [SerializeField] private AudioSource instantAudioSource;
     [SerializeField] private AudioClip hammerSound;
 
     // Start is called before the first frame update
     void Start()
     {
+        restartButton.SetActive(false);
         scoreHeader.gameObject.SetActive(false);
         scoreText.gameObject.SetActive(false);
         timeHeader.gameObject.SetActive(false);
         timeText.gameObject.SetActive(false);
         gameOverText.gameObject.SetActive(false);
+        gameAudioSource.Play();
     }
 
     private void Awake()
     {
-        if (Instance == null)
+        if (GameManagerInstance == null)
         {
-            Instance = Singleton<GameManager>.Instance;
+            GameManagerInstance = Singleton<GameManager>.Instance;
         }
         else
         {
@@ -54,18 +58,26 @@ public class GameManager : Singleton<GameManager>
     public void StartGame()
     {      
           startButton.SetActive(false);
-          _timeRemaining = StartingTime;
-          _timer = 0f;
-          _score = 0;
-          _playing = true;
-          scoreHeader.gameObject.SetActive(true);
-          scoreText.gameObject.SetActive(true);
-          timeHeader.gameObject.SetActive(true);
-          timeText.gameObject.SetActive(true);
-          timeText.text  = Mathf.RoundToInt(StartingTime).ToString();
-          scoreText.text = "000";
-          _activeMoleHoles = new HashSet<MoleHole>();
+          RestartGame();
           CreateMoleHoles();
+    }
+
+    public void RestartGame()
+    {
+        ChangeMoleHolesAppearance(true);
+        restartButton.SetActive(false);
+        gameOverText.SetActive(false);
+        _timeRemaining = StartingTime;
+        _timer = 0f;
+        _score = 0;
+        _playing = true;
+        scoreHeader.gameObject.SetActive(true);
+        scoreText.gameObject.SetActive(true);
+        timeHeader.gameObject.SetActive(true);
+        timeText.gameObject.SetActive(true);
+        timeText.text  = Mathf.RoundToInt(StartingTime).ToString();
+        scoreText.text = "000";
+        _activeMoleHoles = new HashSet<MoleHole>();
     }
 
     private void CreateMoleHoles()
@@ -104,7 +116,7 @@ public class GameManager : Singleton<GameManager>
             {
                 _timer += Time.deltaTime;
                 if(Input.GetMouseButtonDown(0))
-                    PlaySoundEffect(audioSource, hammerSound);
+                    PlaySoundEffect(instantAudioSource, hammerSound);
                 if (_timer >= Mole.Delay)
                 {
                     ActivateRandomMoleHole();
@@ -143,9 +155,25 @@ public class GameManager : Singleton<GameManager>
         audioSource.PlayOneShot(sound);
     }
 
-    void GameOver()
+    private void GameOver()
     {
         _playing = false;
-        gameOverText.gameObject.SetActive(true);
+        ChangeMoleHolesAppearance(false);
+        restartButton.SetActive(true);
+        gameOverText.SetActive(true);
+    }
+
+    private void ChangeMoleHolesAppearance(bool appearance)
+    {
+        foreach (var moleHole in moleHoles)
+        {
+            moleHole.gameObject.SetActive(appearance); 
+            //moleHoles._
+        }
+    }
+
+    public void StopDelay()
+    {
+        _timer = Mole.Delay;
     }
 }

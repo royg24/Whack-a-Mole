@@ -23,6 +23,11 @@ public class MoleHole : MonoBehaviour
 
     public void InactivateMole()
     {
-        GameManager.Instance.InactivateMoleHole(this);
+        GameManager.GameManagerInstance.InactivateMoleHole(this);
+    }
+
+    public void HideMole()
+    {
+        //_mole.transform.localPosition = _mole.st
     }
 }

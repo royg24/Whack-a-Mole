@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class Mole : MonoBehaviour
 {
-    private Camera camera;
+    private Camera _camera;
 
     [Header("ShowHide")]
-    [SerializeField] private float showHideDuration = 1.5f;
+    [SerializeField] private float showHideDuration = 0.6f;
     [SerializeField] private float outDuration = 1f;
     [SerializeField] private float hurtDuration = 0.75f;
-    [SerializeField] private float quickHideDuration = 0.75f;
+    [SerializeField] private float quickHideDuration = 0.3f;
     public static float Delay { get; private set; }
 
     [Header("Positions")]
@@ -37,7 +37,7 @@ public class Mole : MonoBehaviour
 
     void Start()
     {
-        Delay = showHideDuration;
+        Delay = showHideDuration / 3f;
     }
 
 
@@ -46,7 +46,7 @@ public class Mole : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();  
         _boxCollider2D = GetComponent<BoxCollider2D>();
         _parent = GetComponentInParent<MoleHole>();
-        camera = Camera.main;
+        _camera = Camera.main;
         _startPosition = new Vector3(0, -2.56f, 0);
         _endPosition = Vector3.zero;
         transform.localPosition = _startPosition;
@@ -109,6 +109,7 @@ public class Mole : MonoBehaviour
             _spriteRenderer.sprite = mole;
             _hittable = true;
             _parent.InactivateMole();
+            GameManager.GameManagerInstance.StopDelay();
         }
     }
     private void OnMouseDown()
@@ -116,12 +117,14 @@ public class Mole : MonoBehaviour
         // Only proceed if the mole is hittable
         if (_hittable)
         {
-            Vector3 clickPosition = camera.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 clickPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
+            clickPosition.z = 0;
+
             if (clickPosition.y > transform.position.y)
             {
                 _hittable = false;
                 _spriteRenderer.sprite = hurtMole;
-                GameManager.Instance.AddScore();
+                GameManager.GameManagerInstance.AddScore();
                 StopAllCoroutines();
                 StartCoroutine(QuickHide());
             }
