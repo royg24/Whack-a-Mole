@@ -28,6 +28,6 @@ public class MoleHole : MonoBehaviour
 
     public void HideMole()
     {
-        //_mole.transform.localPosition = _mole.st
+        _mole.RestartMole();
     }
 }

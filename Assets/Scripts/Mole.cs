@@ -131,4 +131,9 @@ public class Mole : MonoBehaviour
         }
     }
 
+    public void RestartMole()
+    {
+        transform.localPosition = _startPosition;
+        _spriteRenderer.sprite = mole;
+    }
 }

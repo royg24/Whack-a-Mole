@@ -10,6 +10,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private List<MoleHole> moleHoles;
     [SerializeField] private MoleHole moleHolePrefab;
     private HashSet<MoleHole> _activeMoleHoles;
+    private const string HighScoreData = "High Score";
     private const float StartingTime = 10f;
     private float _timeRemaining;
     private float _timer;
@@ -26,6 +27,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI timeHeader;
     [SerializeField] private TextMeshProUGUI timeText;
+    [SerializeField] private TextMeshProUGUI highScoreHeader;
     [SerializeField] private TextMeshProUGUI highScoreText;
 
     [Header("Audio")] 
@@ -34,23 +36,13 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private AudioClip hammerSound;
 
 
-    public void UpdateHighScore(int newHighScore)
-    {
-        highScoreText.text = newHighScore.ToString();
-    }
-
     // Start is called before the first frame update
     void Start()
     {
+        ChangeGameUIVisibility(false);
         restartButton.SetActive(false);
-        scoreHeader.gameObject.SetActive(false);
-        scoreText.gameObject.SetActive(false);
-        timeHeader.gameObject.SetActive(false);
-        timeText.gameObject.SetActive(false);
-        gameOverText.gameObject.SetActive(false);
         gameAudioSource.Play();
-        highScoreText.gameObject.SetActive(true);
-        UpdateHighScore(_highScore);
+        //UpdateHighScore(_highScore);
     }
 
     private void Awake()
@@ -66,27 +58,25 @@ public class GameManager : Singleton<GameManager>
     }
 
     public void StartGame()
-    {      
-          startButton.SetActive(false);
-          RestartGame();
-          CreateMoleHoles();
+    {
+        startButton.SetActive(false);
+        RestartGame(); 
+        CreateMoleHoles();
     }
 
     public void RestartGame()
     {
-        ChangeMoleHolesAppearance(true);
+        _highScore = PlayerPrefs.GetInt(HighScoreData, 0);
+        highScoreText.text = _highScore.ToString();
+        ChangeMoleHolesVisibility(true);
+        ChangeGameUIVisibility(true);
+        gameOverText.gameObject.SetActive(false);
         restartButton.SetActive(false);
-        gameOverText.SetActive(false);
         _timeRemaining = StartingTime;
         _timer = 0f;
         _score = 0;
         _playing = true;
-        scoreHeader.gameObject.SetActive(true);
-        scoreText.gameObject.SetActive(true);
-        timeHeader.gameObject.SetActive(true);
-        timeText.gameObject.SetActive(true);
         timeText.text  = Mathf.RoundToInt(StartingTime).ToString();
-        scoreText.text = "000";
         _activeMoleHoles = new HashSet<MoleHole>();
     }
 
@@ -133,7 +123,7 @@ public class GameManager : Singleton<GameManager>
                     _timer = 0f;
                 }
 
-                scoreText.text = _score.ToString("D3");
+                scoreText.text = _score.ToString();
             }
         }
     }
@@ -162,7 +152,7 @@ public class GameManager : Singleton<GameManager>
         if (_score >= _highScore)
         {
             _highScore = _score;
-            UpdateHighScore(_highScore);
+            UpdateHighScore();
         }
     }
 
@@ -174,22 +164,41 @@ public class GameManager : Singleton<GameManager>
     private void GameOver()
     {
         _playing = false;
-        ChangeMoleHolesAppearance(false);
+        ChangeMoleHolesVisibility(false);
+        ChangeGameUIVisibility(false);
         restartButton.SetActive(true);
         gameOverText.SetActive(true);
     }
 
-    private void ChangeMoleHolesAppearance(bool appearance)
+    private void ChangeMoleHolesVisibility(bool value)
     {
         foreach (var moleHole in moleHoles)
         {
-            moleHole.gameObject.SetActive(appearance); 
-            //moleHoles._
+            moleHole.gameObject.SetActive(value);
+            moleHole.HideMole();
         }
     }
 
     public void StopDelay()
     {
         _timer = Mole.Delay;
+    }
+
+    private void ChangeGameUIVisibility(bool value)
+    {
+        scoreHeader.gameObject.SetActive(value);
+        scoreText.gameObject.SetActive(value);
+        timeHeader.gameObject.SetActive(value);
+        timeText.gameObject.SetActive(value);
+        gameOverText.gameObject.SetActive(value);
+        highScoreText.gameObject.SetActive(value);
+        highScoreHeader.gameObject.SetActive(value);
+    }
+
+    public void UpdateHighScore()
+    {
+        PlayerPrefs.SetInt(HighScoreData, _highScore);
+        PlayerPrefs.Save();
+        highScoreText.text = _highScore.ToString();
     }
 }
