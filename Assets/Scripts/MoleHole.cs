@@ -5,6 +5,7 @@ public class MoleHole : MonoBehaviour
     private Mole _mole;
     [SerializeField] private Mole molePrefab;
 
+
     private void Awake()
     {
         _mole = GetComponentInChildren<Mole>();
@@ -28,6 +29,6 @@ public class MoleHole : MonoBehaviour
 
     public void HideMole()
     {
-        _mole.RestartMole();
+        _mole.InitializeMole();
     }
 }

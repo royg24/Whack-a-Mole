@@ -32,8 +32,8 @@ public class PlayerCursorController : Singleton<PlayerCursorController>
         GUIUtility.RotateAroundPivot(rotationAngle, Event.current.mousePosition);
 
         // ����� �� ������ �� ����
-        GUI.DrawTexture(new Rect(Event.current.mousePosition.x - cursorTexture.width / 2,
-                                 Event.current.mousePosition.y - cursorTexture.height / 2,
+        GUI.DrawTexture(new Rect(Event.current.mousePosition.x - cursorTexture.width / 2f,
+                                 Event.current.mousePosition.y - cursorTexture.height / 2f,
                                  cursorTexture.width, cursorTexture.height), cursorTexture);
 
         // ����� �� ������� ���� �����

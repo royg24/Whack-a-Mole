@@ -5,7 +5,7 @@ public class Mole : MonoBehaviour
 {
     private Camera _camera;
 
-    [Header("ShowHide")]
+    [Header("Show-Hide")]
     [SerializeField] private float showHideDuration = 0.6f;
     [SerializeField] private float outDuration = 1f;
     [SerializeField] private float hurtDuration = 0.75f;
@@ -49,12 +49,13 @@ public class Mole : MonoBehaviour
         _camera = Camera.main;
         _startPosition = new Vector3(0, -2.56f, 0);
         _endPosition = Vector3.zero;
-        transform.localPosition = _startPosition;
         _boxOffset = _boxCollider2D.offset;
         _boxSize = _boxCollider2D.size;
         _boxOffsetHidden = new Vector3(_boxOffset.x, -_startPosition.y / 2f, 0f);
         _boxSizeHidden = new Vector3(_boxOffset.x, 0f, 0f);
+        InitializeMole();
     }
+
 
 
     public void ActivateMole()
@@ -99,11 +100,11 @@ public class Mole : MonoBehaviour
 
     private IEnumerator QuickHide()
     {
+        GameManager.PlaySoundEffect(audioSource, hitSound);
         yield return new WaitForSeconds(hurtDuration);
 
         if (!_hittable)
         {
-            GameManager.PlaySoundEffect(audioSource, hitSound);
             yield return StartCoroutine(ShowHideLoop(transform.localPosition, _startPosition, quickHideDuration, 
                 _boxOffset, _boxOffsetHidden, _boxSize, _boxSizeHidden));
             _spriteRenderer.sprite = mole;
@@ -117,8 +118,7 @@ public class Mole : MonoBehaviour
         // Only proceed if the mole is hittable
         if (_hittable)
         {
-            Vector3 clickPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
-            clickPosition.z = 0;
+            var clickPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
 
             if (clickPosition.y > transform.position.y)
             {
@@ -131,9 +131,12 @@ public class Mole : MonoBehaviour
         }
     }
 
-    public void RestartMole()
+    public void InitializeMole()
     {
         transform.localPosition = _startPosition;
         _spriteRenderer.sprite = mole;
+        _boxCollider2D.offset = _boxOffsetHidden;
+        _boxCollider2D.size = _boxSizeHidden;
     }
+
 }

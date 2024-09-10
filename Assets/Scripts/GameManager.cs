@@ -42,7 +42,6 @@ public class GameManager : Singleton<GameManager>
         ChangeGameUIVisibility(false);
         restartButton.SetActive(false);
         gameAudioSource.Play();
-        //UpdateHighScore(_highScore);
     }
 
     private void Awake()
@@ -60,8 +59,8 @@ public class GameManager : Singleton<GameManager>
     public void StartGame()
     {
         startButton.SetActive(false);
-        RestartGame(); 
         CreateMoleHoles();
+        RestartGame(); 
     }
 
     public void RestartGame()
@@ -83,8 +82,8 @@ public class GameManager : Singleton<GameManager>
     private void CreateMoleHoles()
     {
         moleHoles = new List<MoleHole>();
-        var horizontalInterval = 4;
-        var verticalInterval = 3;
+        var horizontalInterval = 4f;
+        var verticalInterval = 2.5f;
     
         for (var i = 1; i > -2; i--)
         {
@@ -164,10 +163,19 @@ public class GameManager : Singleton<GameManager>
     private void GameOver()
     {
         _playing = false;
-        ChangeMoleHolesVisibility(false);
         ChangeGameUIVisibility(false);
+        WaitDelay(4f);
         restartButton.SetActive(true);
         gameOverText.SetActive(true);
+        WaitDelay(4f);
+        ChangeMoleHolesVisibility(false);
+    }
+
+    private void WaitDelay(float delay)
+    {
+        _timer = 0;
+        while (_timer <= delay)
+            _timer += Time.deltaTime;
     }
 
     private void ChangeMoleHolesVisibility(bool value)
@@ -195,7 +203,7 @@ public class GameManager : Singleton<GameManager>
         highScoreHeader.gameObject.SetActive(value);
     }
 
-    public void UpdateHighScore()
+    private void UpdateHighScore()
     {
         PlayerPrefs.SetInt(HighScoreData, _highScore);
         PlayerPrefs.Save();

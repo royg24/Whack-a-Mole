@@ -107,7 +107,6 @@ MonoBehaviour:
   hurtMole: {fileID: 21300000, guid: 8f7851fe20cfc0246a750b119b84545a, type: 3}
   audioSource: {fileID: 1698192638725638321}
   hitSound: {fileID: 8300000, guid: 01574308b92e90e44b9ead7d2a69ebba, type: 3}
-  hammerSound: {fileID: 8300000, guid: 3b9eb9900e90c6147811860048913c4d, type: 3}
 --- !u!82 &1698192638725638321
 AudioSource:
   m_ObjectHideFlags: 0
@@ -233,7 +232,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
