@@ -9,6 +9,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject startButton;
     [SerializeField] private GameObject restartButton;
 
+    [Header("Game UI")] //is needed???
     [SerializeField] private GameObject gameUI;
 
     [Header("Texts")]
@@ -62,6 +63,7 @@ public class UIManager : Singleton<UIManager>
         GameManager.GameManagerInstance.WaitDelay(4f);
         restartButton.SetActive(!playing);
         gameOverText.SetActive(!playing);
+        //TODO Add score text in the end of a round
         GameManager.GameManagerInstance.WaitDelay(4f);
     }
 

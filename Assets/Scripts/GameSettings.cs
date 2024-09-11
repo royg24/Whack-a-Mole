@@ -7,7 +7,6 @@ public class GameSettings : Singleton<GameSettings>
     public const string HighScoreData = "High Score";
     public const float StartingTime = 10f;
 
-
     public float ShowHideDuration { get; private set; }
     public float OutDuration { get; private set; }
     public float HurtDuration { get; private set; }
@@ -49,6 +48,7 @@ public class GameSettings : Singleton<GameSettings>
 
     private void SetTimeSettings()
     {
+        //TODO Add difficulties
         ShowHideDuration = 1f;
         OutDuration = 1f;
         HurtDuration = 0.75f;
