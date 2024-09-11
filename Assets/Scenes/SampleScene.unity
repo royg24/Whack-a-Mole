@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 416256284}
   - component: {fileID: 416256283}
   m_Layer: 5
-  m_Name: HighScoreHeader (1)
+  m_Name: HighScoreHeader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -423,16 +423,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moleHoles: []
   moleHolePrefab: {fileID: 5049848230536567859, guid: d4b0ae470ae097a4cb801bfc83b72888, type: 3}
-  startButton: {fileID: 730919242}
-  restartButton: {fileID: 1765413324}
-  gameUI: {fileID: 1164792153}
-  gameOverText: {fileID: 1473898211}
-  scoreHeader: {fileID: 1555814483}
-  scoreText: {fileID: 1625160186}
-  timeHeader: {fileID: 1803314194}
-  timeText: {fileID: 1092217213}
-  highScoreHeader: {fileID: 416256283}
-  highScoreText: {fileID: 781406214}
   gameAudioSource: {fileID: 453243030}
   instantAudioSource: {fileID: 453243029}
   hammerSound: {fileID: 8300000, guid: 3b9eb9900e90c6147811860048913c4d, type: 3}
@@ -921,6 +911,60 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &535969908
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 535969910}
+  - component: {fileID: 535969909}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &535969909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535969908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dda9dfefde768649b0b74647f23e4a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startButton: {fileID: 730919242}
+  restartButton: {fileID: 1765413324}
+  gameUI: {fileID: 1164792153}
+  gameOverText: {fileID: 1473898211}
+  scoreHeader: {fileID: 1555814483}
+  scoreText: {fileID: 1625160186}
+  timeHeader: {fileID: 0}
+  timeText: {fileID: 0}
+  highScoreHeader: {fileID: 0}
+  highScoreText: {fileID: 0}
+--- !u!4 &535969910
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535969908}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.0241995, y: -0.2749988, z: -0.013476604}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &730919242
 GameObject:
   m_ObjectHideFlags: 0
@@ -1579,10 +1623,10 @@ RectTransform:
   m_Children:
   - {fileID: 1555814482}
   - {fileID: 1625160185}
-  - {fileID: 416256282}
-  - {fileID: 781406213}
   - {fileID: 1803314193}
   - {fileID: 1092217212}
+  - {fileID: 416256282}
+  - {fileID: 781406213}
   m_Father: {fileID: 514088905}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2336,3 +2380,4 @@ SceneRoots:
   - {fileID: 1429979696}
   - {fileID: 453243028}
   - {fileID: 894511682}
+  - {fileID: 535969910}

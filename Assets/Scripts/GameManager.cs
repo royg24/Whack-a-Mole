@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -18,17 +17,6 @@ public class GameManager : Singleton<GameManager>
     private bool _playing;
     private int _highScore;
 
-    [Header("UI Objects")] 
-    [SerializeField] private GameObject startButton;
-    [SerializeField] private GameObject restartButton;
-    [SerializeField] private GameObject gameUI;
-    [SerializeField] private GameObject gameOverText;
-    [SerializeField] private TextMeshProUGUI scoreHeader;
-    [SerializeField] private TextMeshProUGUI scoreText;
-    [SerializeField] private TextMeshProUGUI timeHeader;
-    [SerializeField] private TextMeshProUGUI timeText;
-    [SerializeField] private TextMeshProUGUI highScoreHeader;
-    [SerializeField] private TextMeshProUGUI highScoreText;
 
     [Header("Audio")] 
     [SerializeField] private AudioSource gameAudioSource;
@@ -39,8 +27,6 @@ public class GameManager : Singleton<GameManager>
     // Start is called before the first frame update
     void Start()
     {
-        ChangeGameUIVisibility(false);
-        restartButton.SetActive(false);
         gameAudioSource.Play();
     }
 
@@ -58,7 +44,7 @@ public class GameManager : Singleton<GameManager>
 
     public void StartGame()
     {
-        startButton.SetActive(false);
+        UIManager.UIManagerInstance.StartUI(true);
         CreateMoleHoles();
         RestartGame(); 
     }
@@ -66,16 +52,12 @@ public class GameManager : Singleton<GameManager>
     public void RestartGame()
     {
         _highScore = PlayerPrefs.GetInt(HighScoreData, 0);
-        highScoreText.text = _highScore.ToString();
+        UIManager.UIManagerInstance.RestartUI(_highScore, StartingTime);
         ChangeMoleHolesVisibility(true);
-        ChangeGameUIVisibility(true);
-        gameOverText.gameObject.SetActive(false);
-        restartButton.SetActive(false);
         _timeRemaining = StartingTime;
         _timer = 0f;
         _score = 0;
         _playing = true;
-        timeText.text  = Mathf.RoundToInt(StartingTime).ToString();
         _activeMoleHoles = new HashSet<MoleHole>();
     }
 
@@ -104,7 +86,7 @@ public class GameManager : Singleton<GameManager>
         if (_playing)
         {
             _timeRemaining -= Time.deltaTime;
-            timeText.text = Mathf.RoundToInt(_timeRemaining).ToString();
+            UIManager.UIManagerInstance.UpdateTime(_timeRemaining);
 
             if (_timeRemaining <= 0)
             {
@@ -122,7 +104,7 @@ public class GameManager : Singleton<GameManager>
                     _timer = 0f;
                 }
 
-                scoreText.text = _score.ToString();
+                UIManager.UIManagerInstance.UpdateScoreText(_score);
             }
         }
     }
@@ -163,15 +145,11 @@ public class GameManager : Singleton<GameManager>
     private void GameOver()
     {
         _playing = false;
-        ChangeGameUIVisibility(false);
-        WaitDelay(4f);
-        restartButton.SetActive(true);
-        gameOverText.SetActive(true);
-        WaitDelay(4f);
+        UIManager.UIManagerInstance.SwitchGameModesUI(false);
         ChangeMoleHolesVisibility(false);
     }
 
-    private void WaitDelay(float delay)
+    public void WaitDelay(float delay)
     {
         _timer = 0;
         while (_timer <= delay)
@@ -192,21 +170,10 @@ public class GameManager : Singleton<GameManager>
         _timer = Mole.Delay;
     }
 
-    private void ChangeGameUIVisibility(bool value)
-    {
-        scoreHeader.gameObject.SetActive(value);
-        scoreText.gameObject.SetActive(value);
-        timeHeader.gameObject.SetActive(value);
-        timeText.gameObject.SetActive(value);
-        gameOverText.gameObject.SetActive(value);
-        highScoreText.gameObject.SetActive(value);
-        highScoreHeader.gameObject.SetActive(value);
-    }
-
     private void UpdateHighScore()
     {
         PlayerPrefs.SetInt(HighScoreData, _highScore);
         PlayerPrefs.Save();
-        highScoreText.text = _highScore.ToString();
+        UIManager.UIManagerInstance.UpdateHighScoreText(_highScore);
     }
 }
