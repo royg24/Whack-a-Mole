@@ -1,16 +1,17 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.Serialization;
 
 public class UIManager : Singleton<UIManager>
 {
     public static UIManager UIManagerInstance { get; private set; }
+
+    [Header("Buttons")]
     [SerializeField] private GameObject startButton;
     [SerializeField] private GameObject restartButton;
+
     [SerializeField] private GameObject gameUI;
+
+    [Header("Texts")]
     [SerializeField] private GameObject gameOverText;
     [SerializeField] private TextMeshProUGUI scoreHeader;
     [SerializeField] private TextMeshProUGUI scoreText;

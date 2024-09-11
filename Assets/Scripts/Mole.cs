@@ -5,13 +5,6 @@ public class Mole : MonoBehaviour
 {
     private Camera _camera;
 
-    [Header("Show-Hide")]
-    [SerializeField] private float showHideDuration = 0.6f;
-    [SerializeField] private float outDuration = 1f;
-    [SerializeField] private float hurtDuration = 0.75f;
-    [SerializeField] private float quickHideDuration = 0.3f;
-    public static float Delay { get; private set; }
-
     [Header("Positions")]
     private Vector3 _startPosition;
     private Vector3 _endPosition;
@@ -19,27 +12,10 @@ public class Mole : MonoBehaviour
     private Vector3 _boxSize;
     private Vector3 _boxOffsetHidden;
     private Vector3 _boxSizeHidden;
-
-    [Header("Sprites")] 
-    [SerializeField] private Sprite mole;
-    [SerializeField] private Sprite hurtMole;
-
-    [Header("Audio")]
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip hitSound;
-
     private MoleHole _parent;
     private SpriteRenderer _spriteRenderer;
     private BoxCollider2D _boxCollider2D;
     private bool _hittable = true;
-
-    // Start is called before the first frame update
-
-    void Start()
-    {
-        Delay = showHideDuration / 3f;
-    }
-
 
     private void Awake()
     {
@@ -47,12 +23,13 @@ public class Mole : MonoBehaviour
         _boxCollider2D = GetComponent<BoxCollider2D>();
         _parent = GetComponentInParent<MoleHole>();
         _camera = Camera.main;
-        _startPosition = new Vector3(0, -2.56f, 0);
-        _endPosition = Vector3.zero;
+        _startPosition = GameSettings.GameSettingsInstance.StartPosition;
+        _endPosition = GameSettings.GameSettingsInstance.EndPosition;
         _boxOffset = _boxCollider2D.offset;
         _boxSize = _boxCollider2D.size;
-        _boxOffsetHidden = new Vector3(_boxOffset.x, -_startPosition.y / 2f, 0f);
-        _boxSizeHidden = new Vector3(_boxOffset.x, 0f, 0f);
+        GameSettings.GameSettingsInstance.SetBoxCollider2DSettings(_boxOffset.x);
+        _boxOffsetHidden = GameSettings.GameSettingsInstance.BoxOffsetHidden;
+        _boxSizeHidden = GameSettings.GameSettingsInstance.BoxSizeHidden;
         InitializeMole();
     }
 
@@ -69,15 +46,17 @@ public class Mole : MonoBehaviour
         transform.localPosition = _startPosition;
 
         //show the mole
-        yield return StartCoroutine(ShowHideLoop(_startPosition, _endPosition, showHideDuration, 
+        yield return StartCoroutine(ShowHideLoop(_startPosition, _endPosition, 
+            GameSettings.GameSettingsInstance.ShowHideDuration, 
             _boxOffsetHidden, _boxOffset, _boxSizeHidden, _boxSize));
 
         //let the mole be out of the hole
-        yield return new WaitForSeconds(outDuration);
+        yield return new WaitForSeconds(GameSettings.GameSettingsInstance.OutDuration);
 
         //hide the mole
 
-        yield return StartCoroutine(ShowHideLoop(_endPosition, _startPosition, showHideDuration, 
+        yield return StartCoroutine(ShowHideLoop(_endPosition, _startPosition, 
+            GameSettings.GameSettingsInstance.ShowHideDuration, 
             _boxOffset, _boxOffsetHidden, _boxSize, _boxSizeHidden));
     }
 
@@ -100,14 +79,15 @@ public class Mole : MonoBehaviour
 
     private IEnumerator QuickHide()
     {
-        GameManager.PlaySoundEffect(audioSource, hitSound);
-        yield return new WaitForSeconds(hurtDuration);
+        GameSettings.GameSettingsInstance.PlayHitSound();
+        yield return new WaitForSeconds(GameSettings.GameSettingsInstance.HurtDuration);
 
         if (!_hittable)
         {
-            yield return StartCoroutine(ShowHideLoop(transform.localPosition, _startPosition, quickHideDuration, 
+            yield return StartCoroutine(ShowHideLoop(transform.localPosition, _startPosition, 
+                GameSettings.GameSettingsInstance.QuickHideDuration, 
                 _boxOffset, _boxOffsetHidden, _boxSize, _boxSizeHidden));
-            _spriteRenderer.sprite = mole;
+            _spriteRenderer.sprite = GameSettings.GameSettingsInstance.GetMoleSprite(false);
             _hittable = true;
             _parent.InactivateMole();
             GameManager.GameManagerInstance.StopDelay();
@@ -123,7 +103,7 @@ public class Mole : MonoBehaviour
             if (clickPosition.y > transform.position.y)
             {
                 _hittable = false;
-                _spriteRenderer.sprite = hurtMole;
+                _spriteRenderer.sprite = GameSettings.GameSettingsInstance.GetMoleSprite(true);
                 GameManager.GameManagerInstance.AddScore();
                 StopAllCoroutines();
                 StartCoroutine(QuickHide());
@@ -134,7 +114,7 @@ public class Mole : MonoBehaviour
     public void InitializeMole()
     {
         transform.localPosition = _startPosition;
-        _spriteRenderer.sprite = mole;
+        _spriteRenderer.sprite = GameSettings.GameSettingsInstance.GetMoleSprite(false);
         _boxCollider2D.offset = _boxOffsetHidden;
         _boxCollider2D.size = _boxSizeHidden;
     }

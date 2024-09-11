@@ -6,29 +6,15 @@ using Random = UnityEngine.Random;
 public class GameManager : Singleton<GameManager>
 {
     public static GameManager GameManagerInstance { get; private set; }
-    [SerializeField] private List<MoleHole> moleHoles;
+    private List<MoleHole> _moleHoles;
     [SerializeField] private MoleHole moleHolePrefab;
     private HashSet<MoleHole> _activeMoleHoles;
-    private const string HighScoreData = "High Score";
-    private const float StartingTime = 10f;
     private float _timeRemaining;
     private float _timer;
     private int _score;
     private bool _playing;
     private int _highScore;
 
-
-    [Header("Audio")] 
-    [SerializeField] private AudioSource gameAudioSource;
-    [SerializeField] private AudioSource instantAudioSource;
-    [SerializeField] private AudioClip hammerSound;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        gameAudioSource.Play();
-    }
 
     private void Awake()
     {
@@ -51,10 +37,10 @@ public class GameManager : Singleton<GameManager>
 
     public void RestartGame()
     {
-        _highScore = PlayerPrefs.GetInt(HighScoreData, 0);
-        UIManager.UIManagerInstance.RestartUI(_highScore, StartingTime);
+        _highScore = PlayerPrefs.GetInt(GameSettings.HighScoreData, 0);
+        UIManager.UIManagerInstance.RestartUI(_highScore, GameSettings.StartingTime);
         ChangeMoleHolesVisibility(true);
-        _timeRemaining = StartingTime;
+        _timeRemaining = GameSettings.StartingTime;
         _timer = 0f;
         _score = 0;
         _playing = true;
@@ -63,7 +49,7 @@ public class GameManager : Singleton<GameManager>
 
     private void CreateMoleHoles()
     {
-        moleHoles = new List<MoleHole>();
+        _moleHoles = new List<MoleHole>();
         var horizontalInterval = 4f;
         var verticalInterval = 2.5f;
     
@@ -74,7 +60,7 @@ public class GameManager : Singleton<GameManager>
                 var moleHole = Instantiate(moleHolePrefab,
                     new Vector3(j * horizontalInterval, i * verticalInterval, 0),
                     quaternion.identity);
-                moleHoles.Add(moleHole);
+                _moleHoles.Add(moleHole);
             }
         }
     }
@@ -96,9 +82,9 @@ public class GameManager : Singleton<GameManager>
             else
             {
                 _timer += Time.deltaTime;
-                if(Input.GetMouseButtonDown(0))
-                    PlaySoundEffect(instantAudioSource, hammerSound);
-                if (_timer >= Mole.Delay)
+                if (Input.GetMouseButtonDown(0))
+                    GameSettings.GameSettingsInstance.PlayHammerSound();
+                if (_timer >= GameSettings.DelayDuration)
                 {
                     ActivateRandomMoleHole();
                     _timer = 0f;
@@ -111,8 +97,8 @@ public class GameManager : Singleton<GameManager>
 
     private void ActivateRandomMoleHole()
     {
-        var moleHoleIndex = Random.Range(0, moleHoles.Count);
-        var currentMoleHole = moleHoles[moleHoleIndex];
+        var moleHoleIndex = Random.Range(0, _moleHoles.Count);
+        var currentMoleHole = _moleHoles[moleHoleIndex];
 
         if (!_activeMoleHoles.Contains(currentMoleHole))
         {
@@ -137,10 +123,6 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public static void PlaySoundEffect(AudioSource audioSource, AudioClip sound)
-    {
-        audioSource.PlayOneShot(sound);
-    }
 
     private void GameOver()
     {
@@ -158,7 +140,7 @@ public class GameManager : Singleton<GameManager>
 
     private void ChangeMoleHolesVisibility(bool value)
     {
-        foreach (var moleHole in moleHoles)
+        foreach (var moleHole in _moleHoles)
         {
             moleHole.gameObject.SetActive(value);
             moleHole.HideMole();
@@ -167,12 +149,12 @@ public class GameManager : Singleton<GameManager>
 
     public void StopDelay()
     {
-        _timer = Mole.Delay;
+        _timer = GameSettings.DelayDuration;
     }
 
     private void UpdateHighScore()
     {
-        PlayerPrefs.SetInt(HighScoreData, _highScore);
+        PlayerPrefs.SetInt(GameSettings.HighScoreData, _highScore);
         PlayerPrefs.Save();
         UIManager.UIManagerInstance.UpdateHighScoreText(_highScore);
     }
