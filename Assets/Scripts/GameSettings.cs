@@ -5,10 +5,11 @@ public class GameSettings : Singleton<GameSettings>
     public static GameSettings GameSettingsInstance { get; private set; }
     public static float DelayDuration { get; private set; }
     public const string HighScoreData = "High Score";
-    public const float StartingTime = 10f;   
+    public const float StartingTime = 60f;
     public const int ScoreIntervals = 10;
     public const float HorizontalIntervals = 4f;
     public const float VerticalIntervals = 2.5f;
+    public const float EndDelayDuration = 4f;
 
     public float ShowHideDuration { get; private set; }
     public float OutDuration { get; private set; }
@@ -49,13 +50,13 @@ public class GameSettings : Singleton<GameSettings>
     {
         gameAudioSource.Play();
         SetTimeSettings();
-        DelayDuration = ShowHideDuration / 3f;
+        DelayDuration = ShowHideDuration / 5f;
     }
 
     private void SetTimeSettings()
     {
         ShowHideDuration = 1f;
-        OutDuration = 1f;
+        OutDuration = 0.6f;
         HurtDuration = 0.75f;
         QuickHideDuration = 0.3f;
     }

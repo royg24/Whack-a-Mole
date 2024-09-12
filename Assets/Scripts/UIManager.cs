@@ -83,9 +83,9 @@ public class UIManager : Singleton<UIManager>
     {
         ChangeStartUIVisibility(playing);
         ChangeHighScoreUI(playing);
-        GameManager.GameManagerInstance.WaitDelay(4f);
+        GameManager.GameManagerInstance.WaitDelay(GameSettings.EndDelayDuration);
         ChangeEndUIVisibility(!playing);
-        GameManager.GameManagerInstance.WaitDelay(4f);
+        GameManager.GameManagerInstance.WaitDelay(GameSettings.EndDelayDuration);
     }
 
 

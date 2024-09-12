@@ -35,12 +35,12 @@ public class GameManager : Singleton<GameManager>
         UIManager.UIManagerInstance.Start();
         UIManager.UIManagerInstance.ChangeBackgroundToStart();
         _highScore = PlayerPrefs.GetInt(GameSettings.HighScoreData, 0);
-        _initialHighScore = _highScore;
         UpdateHighScore();
     }
 
     public void StartGame()
     {
+        _initialHighScore = _highScore;
         UIManager.UIManagerInstance.StartUI(true);
         if (_gameStarting)
             CreateMoleHoles();
@@ -82,6 +82,8 @@ public class GameManager : Singleton<GameManager>
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            ExitGame();
         if (_playing)
         {
             _timeRemaining -= Time.deltaTime;
@@ -171,5 +173,10 @@ public class GameManager : Singleton<GameManager>
         PlayerPrefs.SetInt(GameSettings.HighScoreData, _highScore);
         PlayerPrefs.Save();
         UIManager.UIManagerInstance.UpdateHighScoreText(_highScore);
+    }
+
+    private void ExitGame()
+    {
+        Application.Quit();
     }
 }

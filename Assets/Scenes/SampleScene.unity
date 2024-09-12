@@ -232,9 +232,10 @@ MonoBehaviour:
   hurtMole: {fileID: 21300000, guid: 7d748bab9a3b7cd4aa8ef28d8eb1cf47, type: 3}
   hammer: {fileID: 21300000, guid: 3624d73505c7b97458d04a98e083a377, type: 3}
   gameAudioSource: {fileID: 202240906}
-  instantAudioSource: {fileID: 202240907}
+  shortAudioSource: {fileID: 202240907}
   hitSound: {fileID: 8300000, guid: 01574308b92e90e44b9ead7d2a69ebba, type: 3}
   hammerSound: {fileID: 8300000, guid: 3b9eb9900e90c6147811860048913c4d, type: 3}
+  newHighScoreSound: {fileID: 8300000, guid: af352aebbd08d614bbd767f6b6dcc77f, type: 3}
 --- !u!4 &202240905
 Transform:
   m_ObjectHideFlags: 0
@@ -262,9 +263,9 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4463c7a91e1a93a44ab05030bc599a08, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.79
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -670,7 +671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -1063,10 +1064,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startButton: {fileID: 730919242}
   restartButton: {fileID: 1765413324}
+  menuButton: {fileID: 783687452}
   backgroundImage: {fileID: 45426894}
   startBackgroundImage: {fileID: 2800000, guid: 490149f913aceb546aeeaaaacf50aca6, type: 3}
   gameBackgroundImage: {fileID: 2800000, guid: ae538e88f28d9cc4a9ba1866c556e3ec, type: 3}
-  gameOverText: {fileID: 1473898211}
   scoreHeader: {fileID: 1555814483}
   scoreText: {fileID: 1625160186}
   timeHeader: {fileID: 1803314194}
@@ -1076,6 +1077,7 @@ MonoBehaviour:
   endScoreHeader: {fileID: 1468557191}
   endScoreText: {fileID: 521147208}
   newHighScoreText: {fileID: 1770220710}
+  gameOverText: {fileID: 1473898211}
 --- !u!4 &535969910
 Transform:
   m_ObjectHideFlags: 0
@@ -1441,7 +1443,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 453243027}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: StartGame
+        m_MethodName: Start
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

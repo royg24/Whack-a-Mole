@@ -6,35 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="4c283104-8f88-494d-9368-6cd32dcc6e34" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Whack-a-Mole/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Whack-a-Mole/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/MinionHolePrefab.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/MinionHolePrefab.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/MinionPrefab.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/MinionPrefab.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/MoleHolePrefab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/MoleHolePrefab.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/MolePrefab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/MolePrefab.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameSettings.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerCursorController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerCursorController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerCursorController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerCursorController.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Mole.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Mole.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UIManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/HurtMinion.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/HurtMinion.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/HurtMole.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/HurtMole.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/HurtMole.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/HurtMole.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Minion.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Minion.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/MinionHole.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/MinionHole.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Mole.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Mole.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Mole.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Mole.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/grass.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/grass.jpg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/hammer.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/hammer.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Sprites/hammer.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/hammer.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/moljnir.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/moljnir.png.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +68,14 @@
   }
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds/Whack a Mole.exe" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\Admin\Whack-a-Mole\Builds" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.40f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath C:\Users\Admin\Whack-a-Mole -debugCodeOptimization" />
@@ -141,7 +128,7 @@
       <workItem from="1725629286010" duration="28357000" />
       <workItem from="1725804242422" duration="1033000" />
       <workItem from="1725869582834" duration="22373000" />
-      <workItem from="1725981536840" duration="25812000" />
+      <workItem from="1725981536840" duration="33716000" />
     </task>
     <servers />
   </component>

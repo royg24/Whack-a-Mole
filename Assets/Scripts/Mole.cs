@@ -58,6 +58,7 @@ public class Mole : MonoBehaviour
         yield return StartCoroutine(ShowHideLoop(_endPosition, _startPosition, 
             GameSettings.GameSettingsInstance.ShowHideDuration, 
             _boxOffset, _boxOffsetHidden, _boxSize, _boxSizeHidden));
+        _parent.InactivateMole();
     }
 
     private IEnumerator ShowHideLoop(Vector3 startPosition, Vector3 endPosition, float showDuration,
