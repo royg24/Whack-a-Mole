@@ -1,48 +1,37 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-using UnityEngine;
-using System.Collections;
 
 public class PlayerCursorController : Singleton<PlayerCursorController>
 {
-    public Texture2D cursorTexture; // ������ �� ����
-    private float rotationAngle = 0f; // ����� ������ �������
-    public float rotationDuration = 0.1f; // ���� ��� ���� ����� ����� �-90 �����
+    private Texture2D _cursorTexture;
+    private float _rotationAngle = 0f;
+    public float rotationDuration = 0.1f;
 
     void Start()
     {
-        Cursor.visible = false; // ����� �� ���� ������ �� ����� ������
+        _cursorTexture = GameSettings.GameSettingsInstance.GetHammer().texture;
+        Cursor.visible = false;
     }
 
     void OnGUI()
     {
-        // ���� �� cursorTexture �� �����
-        if (cursorTexture == null)
+        if (!_cursorTexture)
         {
-            Debug.LogError("Cursor texture is not assigned. Please assign a texture in the Inspector.");
-            return; // ���� ��������� �� ��� ����� ������
+            return;
         }
 
-        // ���� �� ������� ������� �� GUI
         Matrix4x4 matrixBackup = GUI.matrix;
+        GUIUtility.RotateAroundPivot(_rotationAngle, Event.current.mousePosition);
 
-        // ����� �� ���� ����� ������ ����� ��� ������ �������
-        GUIUtility.RotateAroundPivot(rotationAngle, Event.current.mousePosition);
+        GUI.DrawTexture(new Rect(Event.current.mousePosition.x - _cursorTexture.width / 2f,
+            Event.current.mousePosition.y - _cursorTexture.height / 2f,
+            _cursorTexture.width, _cursorTexture.height), _cursorTexture);
 
-        // ����� �� ������ �� ����
-        GUI.DrawTexture(new Rect(Event.current.mousePosition.x - cursorTexture.width / 2f,
-                                 Event.current.mousePosition.y - cursorTexture.height / 2f,
-                                 cursorTexture.width, cursorTexture.height), cursorTexture);
-
-        // ����� �� ������� ���� �����
         GUI.matrix = matrixBackup;
     }
 
     void Update()
     {
-        // ���� �� �� ����� �� ����� ����� ������
         if (Input.GetMouseButtonDown(0))
         {
             StartCoroutine(RotateCursor());
@@ -51,13 +40,8 @@ public class PlayerCursorController : Singleton<PlayerCursorController>
 
     IEnumerator RotateCursor()
     {
-        // ����� �� ���� �-90 ����� �����
-        rotationAngle = -90f;
-
-        // ����� ���� ������ (rotationDuration)
+        _rotationAngle = -90f;
         yield return new WaitForSeconds(rotationDuration);
-
-        // ����� �� ���� ���� ������ (0 �����)
-        rotationAngle = 0f;
+        _rotationAngle = 0f;
     }
 }

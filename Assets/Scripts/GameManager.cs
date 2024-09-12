@@ -12,15 +12,17 @@ public class GameManager : Singleton<GameManager>
     private float _timeRemaining;
     private float _timer;
     private int _score;
-    private bool _playing;
     private int _highScore;
-
+    private int _initialHighScore;
+    private bool _playing;
+    private bool _gameStarting;
 
     private void Awake()
     {
         if (GameManagerInstance == null)
         {
             GameManagerInstance = Singleton<GameManager>.Instance;
+            _gameStarting = true;
         }
         else
         {
@@ -28,15 +30,28 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public void Start()
+    {
+        UIManager.UIManagerInstance.Start();
+        UIManager.UIManagerInstance.ChangeBackgroundToStart();
+        _highScore = PlayerPrefs.GetInt(GameSettings.HighScoreData, 0);
+        _initialHighScore = _highScore;
+        UpdateHighScore();
+    }
+
     public void StartGame()
     {
         UIManager.UIManagerInstance.StartUI(true);
-        CreateMoleHoles();
+        if (_gameStarting)
+            CreateMoleHoles();
+        else
+            _gameStarting = false;
         RestartGame(); 
     }
 
     public void RestartGame()
     {
+        UIManager.UIManagerInstance.ChangeBackgroundToGame();
         _highScore = PlayerPrefs.GetInt(GameSettings.HighScoreData, 0);
         UIManager.UIManagerInstance.RestartUI(_highScore, GameSettings.StartingTime);
         ChangeMoleHolesVisibility(true);
@@ -50,15 +65,13 @@ public class GameManager : Singleton<GameManager>
     private void CreateMoleHoles()
     {
         _moleHoles = new List<MoleHole>();
-        var horizontalInterval = 4f;
-        var verticalInterval = 2.5f;
     
         for (var i = 1; i > -2; i--)
         {
             for (var j = -1; j < 2; j++)
             {
                 var moleHole = Instantiate(moleHolePrefab,
-                    new Vector3(j * horizontalInterval, i * verticalInterval, 0),
+                    new Vector3(j * GameSettings.HorizontalIntervals, i * GameSettings.VerticalIntervals, 0),
                     quaternion.identity);
                 _moleHoles.Add(moleHole);
             }
@@ -114,7 +127,7 @@ public class GameManager : Singleton<GameManager>
 
     public void AddScore()
     {
-        _score += 10;
+        _score += GameSettings.ScoreIntervals;
 
         if (_score >= _highScore)
         {
@@ -128,6 +141,7 @@ public class GameManager : Singleton<GameManager>
     {
         _playing = false;
         UIManager.UIManagerInstance.SwitchGameModesUI(false);
+        UIManager.UIManagerInstance.UpdateEndScoreText(_score, _highScore > _initialHighScore);
         ChangeMoleHolesVisibility(false);
     }
 

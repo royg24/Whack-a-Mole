@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2262650834133481103}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.3, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 2d72ce6d110213d4ca0938466350ac7a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5c3ee02557a88d2408de16339ce823f2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,14 +99,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 421a49e65a30aca4693d53dcd2eda0f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showHideDuration: 1.5
-  outDuration: 1
-  hurtDuration: 0.75
-  quickHideDuration: 0.75
-  mole: {fileID: 21300000, guid: 2d72ce6d110213d4ca0938466350ac7a, type: 3}
-  hurtMole: {fileID: 21300000, guid: 8f7851fe20cfc0246a750b119b84545a, type: 3}
-  audioSource: {fileID: 1698192638725638321}
-  hitSound: {fileID: 8300000, guid: 01574308b92e90e44b9ead7d2a69ebba, type: 3}
 --- !u!82 &1698192638725638321
 AudioSource:
   m_ObjectHideFlags: 0
@@ -239,7 +231,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.56, y: 2.56}
+    oldSize: {x: 3.27, y: 2.86}
     newSize: {x: 2.56, y: 2.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

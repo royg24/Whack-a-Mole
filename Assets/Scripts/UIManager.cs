@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -8,18 +9,30 @@ public class UIManager : Singleton<UIManager>
     [Header("Buttons")]
     [SerializeField] private GameObject startButton;
     [SerializeField] private GameObject restartButton;
+    [SerializeField] private GameObject menuButton;
 
-    [Header("Game UI")] //is needed???
-    [SerializeField] private GameObject gameUI;
+    [Header("Backgrounds")] 
+    [SerializeField] private Image backgroundImage;
+    [SerializeField] private Texture2D startBackgroundImage;
+    [SerializeField] private Texture2D gameBackgroundImage;
 
-    [Header("Texts")]
-    [SerializeField] private GameObject gameOverText;
+    [Header("Score Texts")]
     [SerializeField] private TextMeshProUGUI scoreHeader;
     [SerializeField] private TextMeshProUGUI scoreText;
+
+    [Header("Time Texts")]
     [SerializeField] private TextMeshProUGUI timeHeader;
     [SerializeField] private TextMeshProUGUI timeText;
+
+    [Header("High Score Texts")]
     [SerializeField] private TextMeshProUGUI highScoreHeader;
     [SerializeField] private TextMeshProUGUI highScoreText;
+
+    [Header("End Game Texts")]
+    [SerializeField] private TextMeshProUGUI endScoreHeader;
+    [SerializeField] private TextMeshProUGUI endScoreText;
+    [SerializeField] private TextMeshProUGUI newHighScoreText;
+    [SerializeField] private GameObject gameOverText;
 
     private void Awake()
     {
@@ -36,35 +49,54 @@ public class UIManager : Singleton<UIManager>
     public void Start()
     {
         startButton.SetActive(true);
+        ChangeHighScoreVisibility(true);
         restartButton.SetActive(false);
-        ChangeGameUIVisibility(false);
+        menuButton.SetActive(false);
+        ChangeStartUIVisibility(false);
     }
 
     public void StartUI(bool value)
     {
-          ChangeGameUIVisibility(value);
+          ChangeStartUIVisibility(value);
           startButton.SetActive(false);
     }
 
-    private void ChangeGameUIVisibility(bool value)
+    private void ChangeStartUIVisibility(bool value)
     {
         scoreHeader.gameObject.SetActive(value);
         scoreText.gameObject.SetActive(value);
         timeHeader.gameObject.SetActive(value);
         timeText.gameObject.SetActive(value);
         gameOverText.gameObject.SetActive(value);
+        endScoreHeader.gameObject.SetActive(value);
+        endScoreText.gameObject.SetActive(value);
+        newHighScoreText.gameObject.SetActive(value);
+    }
+
+    private void ChangeHighScoreVisibility(bool value)
+    {
         highScoreText.gameObject.SetActive(value);
         highScoreHeader.gameObject.SetActive(value);
     }
 
     public void SwitchGameModesUI(bool playing)
     {
-        ChangeGameUIVisibility(playing);
+        ChangeStartUIVisibility(playing);
+        ChangeHighScoreUI(playing);
         GameManager.GameManagerInstance.WaitDelay(4f);
-        restartButton.SetActive(!playing);
-        gameOverText.SetActive(!playing);
-        //TODO Add score text in the end of a round
+        ChangeEndUIVisibility(!playing);
         GameManager.GameManagerInstance.WaitDelay(4f);
+    }
+
+
+    private void ChangeEndUIVisibility(bool value)
+    {
+        restartButton.SetActive(value);
+        menuButton.SetActive(value);
+        gameOverText.SetActive(value);
+        endScoreHeader.gameObject.SetActive(value);
+        endScoreText.gameObject.SetActive(value);
+        newHighScoreText.gameObject.SetActive(value);
     }
 
     public void RestartUI(int highScore, float startingTime)
@@ -89,4 +121,34 @@ public class UIManager : Singleton<UIManager>
         highScoreText.text = highScore.ToString();
     }
 
+    public void UpdateEndScoreText(int score, bool newHighScore)
+    {
+        endScoreText.text = score.ToString();
+        if (newHighScore) 
+            GameSettings.GameSettingsInstance.PlayHighScoreSound();
+        newHighScoreText.gameObject.SetActive(newHighScore);
+    }
+
+    private void ChangeHighScoreUI(bool appear)
+    {
+        highScoreHeader.gameObject.SetActive(appear);
+         highScoreText.gameObject.SetActive(appear);
+    }
+
+    private void ChangeBackground(Texture2D background)
+    {
+        backgroundImage.sprite = Sprite.Create(background,
+            new Rect(0, 0, background.width, background.height), 
+            new Vector2(0.5f, 0.5f));
+    }
+
+    public void ChangeBackgroundToGame()
+    {
+           ChangeBackground(gameBackgroundImage);
+    }
+
+    public void ChangeBackgroundToStart()
+    {
+        ChangeBackground(startBackgroundImage);
+    }
 }
