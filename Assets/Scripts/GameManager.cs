@@ -175,7 +175,7 @@ public class GameManager : Singleton<GameManager>
         UIManager.UIManagerInstance.UpdateHighScoreText(_highScore);
     }
 
-    private void ExitGame()
+    public void ExitGame()
     {
         Application.Quit();
     }
