@@ -1,6 +1,6 @@
 # Whack-a-Mole
 
-![Whack-a-Mole Game Screenshot](https://github.com/royg24/Whack-a-Mole/blob/main/Assets/Sprites/starting%20screen.png?raw=true)
+![Whack-a-Mole Game Screenshot](https://github.com/royg24/Whack-a-Mole/blob/main/Assets/Sprites/README%20photo.jpg?raw=true)
 
 ## Project Overview
 
