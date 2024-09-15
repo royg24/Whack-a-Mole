@@ -20,8 +20,6 @@ Whack-a-Mole is a fast-paced game where players must hit moles as they randomly 
 
 To get started with the Whack-a-Mole game:
 
-1. Clone the repository: `git clone https://github.com/royg24/Whack-a-Mole.git`
-2. Open the project in Unity
-3. Build and run the game
-
-&copy; 2024 Roy Goldhar and May Ashkenazi. All rights reserved.
+1. Download the repository as a ZIP: (https://github.com/royg24/Whack-a-Mole/releases/download/1.0.0/Whack-a-Mole.zip)
+2. Extract the ZIP file to your preferred location.
+3. Click the exe file and start to play!

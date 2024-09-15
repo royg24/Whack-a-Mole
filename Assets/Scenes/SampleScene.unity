@@ -1068,7 +1068,7 @@ MonoBehaviour:
   menuButton: {fileID: 783687452}
   backgroundImage: {fileID: 45426894}
   startBackgroundImage: {fileID: 2800000, guid: 305ff2d108a739d40a090e8a02da4844, type: 3}
-  gameBackgroundImage: {fileID: 2800000, guid: ae538e88f28d9cc4a9ba1866c556e3ec, type: 3}
+  gameBackgroundImage: {fileID: 2800000, guid: 5b8da06b898843d46a9574bebc0baeb0, type: 3}
   scoreHeader: {fileID: 1555814483}
   scoreText: {fileID: 1625160186}
   timeHeader: {fileID: 1803314194}
