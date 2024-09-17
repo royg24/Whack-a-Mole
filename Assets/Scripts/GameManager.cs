@@ -84,6 +84,8 @@ public class GameManager : Singleton<GameManager>
     {
         if (Input.GetKeyDown(KeyCode.Escape))
             ExitGame();
+        if (Input.GetMouseButtonDown(0))
+            GameSettings.GameSettingsInstance.PlayHammerSound();
         if (_playing)
         {
             _timeRemaining -= Time.deltaTime;
@@ -97,8 +99,6 @@ public class GameManager : Singleton<GameManager>
             else
             {
                 _timer += Time.deltaTime;
-                if (Input.GetMouseButtonDown(0))
-                    GameSettings.GameSettingsInstance.PlayHammerSound();
                 if (_timer >= GameSettings.DelayDuration)
                 {
                     ActivateRandomMoleHole();
@@ -177,6 +177,7 @@ public class GameManager : Singleton<GameManager>
 
     public void ExitGame()
     {
+        PlayerPrefs.Save();
         Application.Quit();
     }
 }

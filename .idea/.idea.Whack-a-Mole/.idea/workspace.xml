@@ -5,7 +5,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c283104-8f88-494d-9368-6cd32dcc6e34" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Whack-a-Mole/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Whack-a-Mole/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/HoleBack.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/HoleBack.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/HoleFront.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/HoleFront.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/HurtMole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/HurtMole.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Mole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Mole.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/README photo.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/README photo.jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/SampleScene.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/SampleScene.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/background.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/exit.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/exit.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/hammer.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/hammer.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/menuButton.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/menuButton.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/pixel.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/pixel.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/playButton.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/playButton.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/retartButton.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/retartButton.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/starting screen.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/starting screen.png.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,6 +151,7 @@
       <workItem from="1725869582834" duration="22373000" />
       <workItem from="1725981536840" duration="33716000" />
       <workItem from="1726148187458" duration="1319000" />
+      <workItem from="1726554747380" duration="549000" />
     </task>
     <servers />
   </component>
