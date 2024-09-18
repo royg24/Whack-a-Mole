@@ -6,11 +6,14 @@ public class PlayerCursorController : Singleton<PlayerCursorController>
     private Texture2D _cursorTexture;
     private float _rotationAngle = 0f;
     public float rotationDuration = 0.1f;
+    private Vector2 _cursorSize;
 
     void Start()
     {
         _cursorTexture = GameSettings.GameSettingsInstance.GetHammer().texture;
         Cursor.visible = false;
+
+        _cursorSize = GameSettings.Instance.CursorSize;
     }
 
     void OnGUI()
@@ -20,12 +23,15 @@ public class PlayerCursorController : Singleton<PlayerCursorController>
             return;
         }
 
+        // Update cursor size based on screen dimensions
+        //_cursorSize = new Vector2(Screen.width * 0.10f, Screen.height * 0.18f);
+
         Matrix4x4 matrixBackup = GUI.matrix;
         GUIUtility.RotateAroundPivot(_rotationAngle, Event.current.mousePosition);
 
-        GUI.DrawTexture(new Rect(Event.current.mousePosition.x - _cursorTexture.width / 2f,
-            Event.current.mousePosition.y - _cursorTexture.height / 2f,
-            _cursorTexture.width, _cursorTexture.height), _cursorTexture);
+        GUI.DrawTexture(new Rect(Event.current.mousePosition.x - _cursorSize.x / 2f,
+            Event.current.mousePosition.y - _cursorSize.y / 2f,
+            _cursorSize.x, _cursorSize.y), _cursorTexture);
 
         GUI.matrix = matrixBackup;
     }

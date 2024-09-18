@@ -18,6 +18,7 @@ public class GameSettings : Singleton<GameSettings>
 
     public readonly Vector3 StartPosition = new Vector3(0f, -2.56f, 0f);
     public readonly Vector3 EndPosition = new Vector3(0f, -0.5f, 0f);
+    public readonly Vector2 CursorSize = new Vector2(Screen.width * 0.1f, Screen.height * 0.18f);
     public Vector3 BoxOffsetHidden { get; private set; }
     public Vector3 BoxSizeHidden { get; private set; }
 

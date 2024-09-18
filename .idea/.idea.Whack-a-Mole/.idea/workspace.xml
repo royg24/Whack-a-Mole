@@ -6,35 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="4c283104-8f88-494d-9368-6cd32dcc6e34" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Whack-a-Mole/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Whack-a-Mole/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/HoleBack.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/HoleBack.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/HoleFront.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/HoleFront.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/HurtMole.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/HurtMole.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Mole.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Mole.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/README photo.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/README photo.jpg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/SampleScene.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/SampleScene.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/background.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/background.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/exit.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/exit.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/hammer.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/hammer.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/menuButton.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/menuButton.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/pixel.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/pixel.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/playButton.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/playButton.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/retartButton.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/retartButton.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/starting screen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/starting screen.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerCursorController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerCursorController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UIManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Game Objects/hammer.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Game Objects/hammer.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/wicked-mouse.regular SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/wicked-mouse.regular SDF.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +37,9 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4746967b7155497e87da4dde169a2f212d600/4f/d5d69019/GUI.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9ae153a4144543aca4f16814b7ce3264175e00/00/28e10ae0/GameObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9ae153a4144543aca4f16814b7ce3264175e00/a0/e0ea810f/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="QODANA_PROBLEMS_VIEW_TAB" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -151,7 +131,9 @@
       <workItem from="1725869582834" duration="22373000" />
       <workItem from="1725981536840" duration="33716000" />
       <workItem from="1726148187458" duration="1319000" />
-      <workItem from="1726554747380" duration="549000" />
+      <workItem from="1726554747380" duration="666000" />
+      <workItem from="1726587472757" duration="1360000" />
+      <workItem from="1726652592751" duration="2686000" />
     </task>
     <servers />
   </component>
