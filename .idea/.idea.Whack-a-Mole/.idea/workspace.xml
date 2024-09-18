@@ -6,12 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4c283104-8f88-494d-9368-6cd32dcc6e34" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Whack-a-Mole/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Whack-a-Mole/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerCursorController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerCursorController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UIManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Game Objects/hammer.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Game Objects/hammer.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/wicked-mouse.regular SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/wicked-mouse.regular SDF.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,7 +127,7 @@
       <workItem from="1726148187458" duration="1319000" />
       <workItem from="1726554747380" duration="666000" />
       <workItem from="1726587472757" duration="1360000" />
-      <workItem from="1726652592751" duration="2686000" />
+      <workItem from="1726652592751" duration="4073000" />
     </task>
     <servers />
   </component>
