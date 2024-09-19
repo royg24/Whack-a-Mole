@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c283104-8f88-494d-9368-6cd32dcc6e34" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Whack-a-Mole/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Whack-a-Mole/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="4c283104-8f88-494d-9368-6cd32dcc6e34" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -127,7 +125,7 @@
       <workItem from="1726148187458" duration="1319000" />
       <workItem from="1726554747380" duration="666000" />
       <workItem from="1726587472757" duration="1360000" />
-      <workItem from="1726652592751" duration="4073000" />
+      <workItem from="1726652592751" duration="4596000" />
     </task>
     <servers />
   </component>

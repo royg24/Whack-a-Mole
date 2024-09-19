@@ -34,9 +34,6 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private TextMeshProUGUI newHighScoreText;
     [SerializeField] private GameObject gameOverText;
 
-    [Header("Pause Text")] 
-    [SerializeField] private TextMeshProUGUI pauseText;
-
     private void Awake()
     {
         if (UIManagerInstance == null)
@@ -56,7 +53,6 @@ public class UIManager : Singleton<UIManager>
         restartButton.SetActive(false);
         menuButton.SetActive(false);
         ChangeStartUIVisibility(false);
-        ChangePauseTextVisibility(false);
     }
 
     public void StartUI(bool value)
@@ -154,10 +150,5 @@ public class UIManager : Singleton<UIManager>
     public void ChangeBackgroundToStart()
     {
         ChangeBackground(startBackgroundImage);
-    }
-
-    public void ChangePauseTextVisibility(bool value)
-    {
-        pauseText.gameObject.SetActive(value);
     }
 }
