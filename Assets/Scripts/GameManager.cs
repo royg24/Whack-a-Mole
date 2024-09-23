@@ -16,7 +16,6 @@ public class GameManager : Singleton<GameManager>
     private int _initialHighScore;
     private bool _playing;
     private bool _gameStarting;
-    private bool _isPaused;
 
     private void Awake()
     {
@@ -60,7 +59,6 @@ public class GameManager : Singleton<GameManager>
         _timer = 0f;
         _score = 0;
         _playing = true;
-        _isPaused = false;
         _activeMoleHoles = new HashSet<MoleHole>();
     }
 
