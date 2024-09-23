@@ -15,15 +15,14 @@ public class GameManager : Singleton<GameManager>
     private int _highScore;
     private int _initialHighScore;
     private bool _playing;
-    private bool _gameStarting;
-    private bool _isPaused;
+    private bool _firstTimeStartingGame;
 
-    private void Awake()
+    public void Awake()
     {
         if (GameManagerInstance == null)
         {
             GameManagerInstance = Singleton<GameManager>.Instance;
-            _gameStarting = true;
+            _firstTimeStartingGame = true;
         }
         else
         {
@@ -33,7 +32,12 @@ public class GameManager : Singleton<GameManager>
 
     public void Start()
     {
-        UIManager.UIManagerInstance.Start();
+        StartMenu();
+    }
+
+    public void StartMenu()
+    {
+        UIManager.UIManagerInstance.StartUI();
         UIManager.UIManagerInstance.ChangeBackgroundToStart();
         _highScore = PlayerPrefs.GetInt(GameSettings.HighScoreData, 0);
         UpdateHighScore();
@@ -42,11 +46,13 @@ public class GameManager : Singleton<GameManager>
     public void StartGame()
     {
         _initialHighScore = _highScore;
-        UIManager.UIManagerInstance.StartUI(true);
-        if (_gameStarting)
+        if (_firstTimeStartingGame)
+        {
+            _firstTimeStartingGame = false;
+            _activeMoleHoles = new HashSet<MoleHole>();
             CreateMoleHoles();
-        else
-            _gameStarting = false;
+        }
+        UIManager.UIManagerInstance.ChangeStartButtonVisibility(false);
         RestartGame(); 
     }
 
@@ -60,8 +66,7 @@ public class GameManager : Singleton<GameManager>
         _timer = 0f;
         _score = 0;
         _playing = true;
-        _isPaused = false;
-        _activeMoleHoles = new HashSet<MoleHole>();
+        _activeMoleHoles.Clear();
     }
 
     private void CreateMoleHoles()
@@ -80,9 +85,8 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -141,7 +145,6 @@ public class GameManager : Singleton<GameManager>
             UpdateHighScore();
         }
     }
-
 
     private void GameOver()
     {

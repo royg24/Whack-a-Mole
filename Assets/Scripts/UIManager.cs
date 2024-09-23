@@ -48,29 +48,30 @@ public class UIManager : Singleton<UIManager>
 
     public void Start()
     {
-        startButton.SetActive(true);
+        StartUI();
+    }
+
+    public void StartUI()
+    {
+        ChangeStartButtonVisibility(true);
         ChangeHighScoreVisibility(true);
         restartButton.SetActive(false);
         menuButton.SetActive(false);
-        ChangeStartUIVisibility(false);
+        ChangeGameUIVisibility(false);
+        ChangeEndUIVisibility(false);
     }
 
-    public void StartUI(bool value)
-    {
-          ChangeStartUIVisibility(value);
-          startButton.SetActive(false);
+    public void ChangeStartButtonVisibility(bool value)
+    { 
+        startButton.SetActive(value);
     }
 
-    private void ChangeStartUIVisibility(bool value)
+    private void ChangeGameUIVisibility(bool value)
     {
         scoreHeader.gameObject.SetActive(value);
         scoreText.gameObject.SetActive(value);
         timeHeader.gameObject.SetActive(value);
         timeText.gameObject.SetActive(value);
-        gameOverText.gameObject.SetActive(value);
-        endScoreHeader.gameObject.SetActive(value);
-        endScoreText.gameObject.SetActive(value);
-        newHighScoreText.gameObject.SetActive(value);
     }
 
     private void ChangeHighScoreVisibility(bool value)
@@ -81,7 +82,7 @@ public class UIManager : Singleton<UIManager>
 
     public void SwitchGameModesUI(bool playing)
     {
-        ChangeStartUIVisibility(playing);
+        ChangeGameUIVisibility(playing);
         ChangeHighScoreUI(playing);
         GameManager.GameManagerInstance.WaitDelay(GameSettings.EndDelayDuration);
         ChangeEndUIVisibility(!playing);
