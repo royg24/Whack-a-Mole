@@ -13,6 +13,7 @@ public class Mole : MonoBehaviour
     private Vector3 _boxOffsetHidden;
     private Vector3 _boxSizeHidden;
     private MoleHole _parent;
+    private float _validClickPosition;
     private SpriteRenderer _spriteRenderer;
     private BoxCollider2D _boxCollider2D;
     private bool _hittable = true;
@@ -30,6 +31,7 @@ public class Mole : MonoBehaviour
         GameSettings.GameSettingsInstance.SetBoxCollider2DSettings(_boxOffset.x);
         _boxOffsetHidden = GameSettings.GameSettingsInstance.BoxOffsetHidden;
         _boxSizeHidden = GameSettings.GameSettingsInstance.BoxSizeHidden;
+        _validClickPosition = _parent.transform.position.y - GameSettings.HoleSize;
         InitializeMole();
     }
 
@@ -101,7 +103,7 @@ public class Mole : MonoBehaviour
         {
             var clickPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
 
-            if (clickPosition.y > transform.position.y)
+            if (clickPosition.y > _validClickPosition)
             {
                 _hittable = false;
                 _spriteRenderer.sprite = GameSettings.GameSettingsInstance.GetMoleSprite(true);

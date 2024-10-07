@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerCursorController : Singleton<PlayerCursorController>
 {
@@ -8,11 +9,10 @@ public class PlayerCursorController : Singleton<PlayerCursorController>
     public float rotationDuration = 0.1f;
     private Vector2 _cursorSize;
 
-    void Start()
+    public void Start()
     {
         _cursorTexture = GameSettings.GameSettingsInstance.GetHammer().texture;
         Cursor.visible = false;
-
         _cursorSize = GameSettings.Instance.CursorSize;
     }
 

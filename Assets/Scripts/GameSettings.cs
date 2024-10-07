@@ -10,6 +10,7 @@ public class GameSettings : Singleton<GameSettings>
     public const float HorizontalIntervals = 4f;
     public const float VerticalIntervals = 2.5f;
     public const float EndDelayDuration = 4f;
+    public const float HoleSize = 0.97f;
 
     public float ShowHideDuration { get; private set; }
     public float OutDuration { get; private set; }
