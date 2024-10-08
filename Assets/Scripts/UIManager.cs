@@ -1,6 +1,10 @@
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine.UI;
+using Enums;
+using UnityEngine.Serialization;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -15,6 +19,10 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private Image backgroundImage;
     [SerializeField] private Texture2D startBackgroundImage;
     [SerializeField] private Texture2D gameBackgroundImage;
+
+    [Header("Toggles")]
+    [SerializeField] private Toggle[] difficultyToggles;
+    [SerializeField] private TextMeshProUGUI difficultyHeader;
 
     [Header("Score Texts")]
     [SerializeField] private TextMeshProUGUI scoreHeader;
@@ -49,11 +57,26 @@ public class UIManager : Singleton<UIManager>
     public void Start()
     {
         StartUI();
+        InitToggles();
+    }
+
+    private void InitToggles()
+    {
+        for(var i = 0; i < difficultyToggles.Length; i++)
+        {
+            var currentToggle = difficultyToggles[i];
+
+            currentToggle.onValueChanged.RemoveAllListeners();
+            currentToggle.onValueChanged.AddListener((isOn) => 
+                OnToggleValueChanged(currentToggle, isOn));
+
+            difficultyToggles[i].isOn = i == GameSettings.InitDifficulty;
+        }
     }
 
     public void StartUI()
     {
-        ChangeStartButtonVisibility(true);
+        ChangeStartUIVisibility(true);
         ChangeHighScoreVisibility(true);
         restartButton.SetActive(false);
         menuButton.SetActive(false);
@@ -61,25 +84,34 @@ public class UIManager : Singleton<UIManager>
         ChangeEndUIVisibility(false);
     }
 
-    public void ChangeStartButtonVisibility(bool value)
+    // Appears only in start menu
+    public void ChangeStartUIVisibility(bool value)
     { 
         startButton.SetActive(value);
+        foreach (var toggle in difficultyToggles)
+        {
+             toggle.gameObject.SetActive(value);
+        }
     }
 
+    // Appears only during the game
     private void ChangeGameUIVisibility(bool value)
     {
         scoreHeader.gameObject.SetActive(value);
         scoreText.gameObject.SetActive(value);
         timeHeader.gameObject.SetActive(value);
         timeText.gameObject.SetActive(value);
+        difficultyHeader.gameObject.SetActive(value);
     }
 
+    // Appears in both start and end
     private void ChangeHighScoreVisibility(bool value)
     {
         highScoreText.gameObject.SetActive(value);
         highScoreHeader.gameObject.SetActive(value);
     }
 
+    // UI changed when game is playing (or not)
     public void SwitchGameModesUI(bool playing)
     {
         ChangeGameUIVisibility(playing);
@@ -89,7 +121,7 @@ public class UIManager : Singleton<UIManager>
         GameManager.GameManagerInstance.WaitDelay(GameSettings.EndDelayDuration);
     }
 
-
+    // Appears only in end menu
     private void ChangeEndUIVisibility(bool value)
     {
         restartButton.SetActive(value);
@@ -151,5 +183,34 @@ public class UIManager : Singleton<UIManager>
     public void ChangeBackgroundToStart()
     {
         ChangeBackground(startBackgroundImage);
+    }
+
+    private void OnToggleValueChanged(Toggle clickedToggle, bool isOn)
+    {
+        if (isOn)
+        {
+            foreach (var toggle in difficultyToggles)
+            {
+                toggle.isOn = toggle == clickedToggle;
+                toggle.interactable = !toggle.isOn;
+
+                if (toggle.isOn)
+                {
+                    // Change high score according to the difficulty
+                    var difficultyText = toggle.GetComponentInChildren<Text>().text;
+                    UpdateHighScoreText(PlayerPrefs.GetInt(difficultyText + GameSettings.HighScoreData, 0));
+                }
+            }
+        }
+    }
+
+    public Toggle[] GetToggles()
+    {
+        return difficultyToggles;
+    }
+
+    public void SetDifficultyHeader(EDifficulty difficulty)
+    {
+        difficultyHeader.text = difficulty.ToString();
     }
 }

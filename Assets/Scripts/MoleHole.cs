@@ -31,4 +31,23 @@ public class MoleHole : MonoBehaviour
     {
         _mole.InitializeMole();
     }
+
+    public float FindBottomY()
+    {
+        float result = 0;
+        var spriteRenderers = gameObject.GetComponentsInChildren<SpriteRenderer>();
+
+        if (spriteRenderers.Length > 0)
+        {
+            var combinedBounds = spriteRenderers[0].bounds;
+
+            foreach (var spriteRenderer in spriteRenderers)
+            {
+                combinedBounds.Encapsulate(spriteRenderer.bounds);  
+            }
+
+            result = combinedBounds.min.y;
+        }
+        return result;
+    }
 }

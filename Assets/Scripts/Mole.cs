@@ -31,7 +31,7 @@ public class Mole : MonoBehaviour
         GameSettings.GameSettingsInstance.SetBoxCollider2DSettings(_boxOffset.x);
         _boxOffsetHidden = GameSettings.GameSettingsInstance.BoxOffsetHidden;
         _boxSizeHidden = GameSettings.GameSettingsInstance.BoxSizeHidden;
-        _validClickPosition = _parent.transform.position.y - GameSettings.HoleSize;
+        _validClickPosition = _parent.FindBottomY() + GameSettings.HoleSize;
         InitializeMole();
     }
 
@@ -120,6 +120,7 @@ public class Mole : MonoBehaviour
         _spriteRenderer.sprite = GameSettings.GameSettingsInstance.GetMoleSprite(false);
         _boxCollider2D.offset = _boxOffsetHidden;
         _boxCollider2D.size = _boxSizeHidden;
+        _hittable = true;
     }
 
 }

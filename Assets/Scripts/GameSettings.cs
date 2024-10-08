@@ -1,16 +1,18 @@
+using Enums;
 using UnityEngine;
 
 public class GameSettings : Singleton<GameSettings>
 {
     public static GameSettings GameSettingsInstance { get; private set; }
     public static float DelayDuration { get; private set; }
-    public const string HighScoreData = "High Score";
-    public const float StartingTime = 60f;
+    public const string HighScoreData = " High Score";
+    public const float StartingTime = 10f;
     public const int ScoreIntervals = 10;
     public const float HorizontalIntervals = 4f;
     public const float VerticalIntervals = 2.5f;
     public const float EndDelayDuration = 4f;
-    public const float HoleSize = 0.97f;
+    public const float HoleSize = 0.401789f;
+    public const int InitDifficulty = 1;
 
     public float ShowHideDuration { get; private set; }
     public float OutDuration { get; private set; }
@@ -51,16 +53,50 @@ public class GameSettings : Singleton<GameSettings>
     private void Start()
     {
         gameAudioSource.Play();
-        SetTimeSettings();
-        DelayDuration = ShowHideDuration / 5f;
     }
 
-    private void SetTimeSettings()
+    public void SetDifficultySettings(EDifficulty difficulty)
+    {
+        UIManager.UIManagerInstance.SetDifficultyHeader(difficulty);
+        switch (difficulty)
+        {
+             case EDifficulty.Easy:
+                 SetEasySetting();
+                 break;
+             case EDifficulty.Medium:
+                 SetMediumSettings();
+                 break;
+             case EDifficulty.Hard:
+                 SetHardSettings();
+                 break;
+        }
+    }
+
+    private void SetEasySetting()
+    {
+        ShowHideDuration = 2f;
+        OutDuration = 1f;
+        HurtDuration = 0.75f;
+        QuickHideDuration = 0.6f;
+        DelayDuration = 0.2f;
+    }
+
+    private void SetMediumSettings()
     {
         ShowHideDuration = 1f;
         OutDuration = 0.6f;
         HurtDuration = 0.75f;
         QuickHideDuration = 0.3f;
+        DelayDuration = 0.4f;
+    }
+
+    private void SetHardSettings()
+    {
+        ShowHideDuration = 0.5f;
+        OutDuration = 0.3f;
+        HurtDuration = 0.75f;
+        QuickHideDuration = 0.2f;
+        DelayDuration = 0.6f;
     }
 
     public void SetBoxCollider2DSettings(float x)
