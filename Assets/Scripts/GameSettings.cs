@@ -4,16 +4,18 @@ using UnityEngine;
 public class GameSettings : Singleton<GameSettings>
 {
     public static GameSettings GameSettingsInstance { get; private set; }
-    public static float DelayDuration { get; private set; }
     public const string HighScoreData = " High Score";
-    public const float StartingTime = 10f;
+    public const float StartingTime = 60f;
     public const int ScoreIntervals = 10;
     public const float HorizontalIntervals = 4f;
     public const float VerticalIntervals = 2.5f;
     public const float EndDelayDuration = 4f;
     public const float HoleSize = 0.401789f;
+    public const float SideMoveDuration = 1f;
     public const int InitDifficulty = 1;
 
+    // Values that change in each difficulty
+    public static float DelayDuration { get; private set; }
     public float ShowHideDuration { get; private set; }
     public float OutDuration { get; private set; }
     public float HurtDuration { get; private set; }
@@ -21,6 +23,7 @@ public class GameSettings : Singleton<GameSettings>
 
     public readonly Vector3 StartPosition = new Vector3(0f, -2.56f, 0f);
     public readonly Vector3 EndPosition = new Vector3(0f, -0.5f, 0f);
+    public readonly Vector3 SideMove = new Vector3(1f, 0f, 0f);
     public readonly Vector2 CursorSize = new Vector2(Screen.width * 0.1f, Screen.height * 0.18f);
     public Vector3 BoxOffsetHidden { get; private set; }
     public Vector3 BoxSizeHidden { get; private set; }

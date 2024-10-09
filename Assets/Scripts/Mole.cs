@@ -66,7 +66,7 @@ public class Mole : MonoBehaviour
     private IEnumerator ShowHideLoop(Vector3 startPosition, Vector3 endPosition, float showDuration,
         Vector3 offsetHidden, Vector3 offset, Vector3 sizeHidden, Vector3 size)
     {
-        float elapsed = 0f;
+        var elapsed = 0f;
         while (elapsed < showDuration)
         {
             transform.localPosition = Vector3.Lerp(startPosition, endPosition, elapsed / showDuration);

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -10,6 +11,7 @@ public class GameManager : Singleton<GameManager>
     private List<MoleHole> _moleHoles;
     [SerializeField] private MoleHole moleHolePrefab;
     private HashSet<MoleHole> _activeMoleHoles;
+    private HashSet<MoleHole> _movingMoleHoles;
     private EDifficulty _gameDifficulty = EDifficulty.Medium;
     private float _timeRemaining;
     private float _timer;
@@ -51,6 +53,7 @@ public class GameManager : Singleton<GameManager>
         {
             _firstTimeStartingGame = false;
             _activeMoleHoles = new HashSet<MoleHole>();
+            _movingMoleHoles = new HashSet<MoleHole>();
             CreateMoleHoles();
         }
         SetGameDifficulty();
@@ -71,6 +74,7 @@ public class GameManager : Singleton<GameManager>
         _score = 0;
         _playing = true;
         _activeMoleHoles.Clear();
+        _movingMoleHoles.Clear();
     }
 
     private void SetGameDifficulty()
@@ -123,6 +127,8 @@ public class GameManager : Singleton<GameManager>
                 _timer += Time.deltaTime;
                 if (_timer >= GameSettings.DelayDuration)
                 {
+                    if(_gameDifficulty == EDifficulty.Hard)
+                        MoveRandomMoleHoleToSide();
                     ActivateRandomMoleHole();
                     _timer = 0f;
                 }
@@ -142,6 +148,23 @@ public class GameManager : Singleton<GameManager>
             _activeMoleHoles.Add(currentMoleHole);
             currentMoleHole.ActivateMoleHole();
         }
+    }
+
+    private void MoveRandomMoleHoleToSide()
+    {
+        var moleHoleIndex = Random.Range(0, _moleHoles.Count);
+        var currentMoleHole = _moleHoles[moleHoleIndex];
+
+        if (!_movingMoleHoles.Contains(currentMoleHole))
+        {
+            _movingMoleHoles.Add(currentMoleHole);
+            currentMoleHole.MoveSideAndReturn();
+        }
+    }
+
+    public void MakeMoleHoleMoveable(MoleHole moleHole)
+    { 
+        _movingMoleHoles.Remove(moleHole);
     }
 
     public void InactivateMoleHole(MoleHole moleHole)
@@ -180,7 +203,7 @@ public class GameManager : Singleton<GameManager>
         foreach (var moleHole in _moleHoles)
         {
             moleHole.gameObject.SetActive(value);
-            moleHole.HideMole();
+            moleHole.InitializeMoleHole();
         }
     }
 
@@ -198,7 +221,6 @@ public class GameManager : Singleton<GameManager>
 
     public void ExitGame()
     {
-        PlayerPrefs.Save();
         Application.Quit();
     }
 }
