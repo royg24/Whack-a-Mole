@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
@@ -9,6 +10,9 @@ using UnityEngine.Serialization;
 public class UIManager : Singleton<UIManager>
 {
     public static UIManager UIManagerInstance { get; private set; }
+
+    [Header("Canvas")]
+    [SerializeField] private Canvas mainCanvas;
 
     [Header("Buttons")]
     [SerializeField] private GameObject startButton;
@@ -27,6 +31,7 @@ public class UIManager : Singleton<UIManager>
     [Header("Score Texts")]
     [SerializeField] private TextMeshProUGUI scoreHeader;
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] public  TextMeshProUGUI scoreAddingTextPrefab;
 
     [Header("Time Texts")]
     [SerializeField] private TextMeshProUGUI timeHeader;
@@ -73,6 +78,7 @@ public class UIManager : Singleton<UIManager>
             difficultyToggles[i].isOn = i == GameSettings.InitDifficulty;
         }
     }
+
 
     public void StartUI()
     {
@@ -209,8 +215,14 @@ public class UIManager : Singleton<UIManager>
         return difficultyToggles;
     }
 
+    public Canvas GetCanvas()
+    {
+        return mainCanvas;
+    }
+
     public void SetDifficultyHeader(EDifficulty difficulty)
     {
         difficultyHeader.text = difficulty.ToString();
     }
+
 }

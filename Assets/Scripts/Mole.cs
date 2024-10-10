@@ -1,10 +1,9 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Mole : MonoBehaviour
 {
-    private Camera _camera;
-
     [Header("Positions")]
     private Vector3 _startPosition;
     private Vector3 _endPosition;
@@ -12,6 +11,7 @@ public class Mole : MonoBehaviour
     private Vector3 _boxSize;
     private Vector3 _boxOffsetHidden;
     private Vector3 _boxSizeHidden;
+
     private MoleHole _parent;
     private float _validClickPosition;
     private SpriteRenderer _spriteRenderer;
@@ -23,7 +23,6 @@ public class Mole : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();  
         _boxCollider2D = GetComponent<BoxCollider2D>();
         _parent = GetComponentInParent<MoleHole>();
-        _camera = Camera.main;
         _startPosition = GameSettings.GameSettingsInstance.StartPosition;
         _endPosition = GameSettings.GameSettingsInstance.EndPosition;
         _boxOffset = _boxCollider2D.offset;
@@ -34,8 +33,6 @@ public class Mole : MonoBehaviour
         _validClickPosition = _parent.FindBottomY() + GameSettings.HoleSize;
         InitializeMole();
     }
-
-
 
     public void ActivateMole()
     {
@@ -101,7 +98,7 @@ public class Mole : MonoBehaviour
         // Only proceed if the mole is hittable
         if (_hittable)
         {
-            var clickPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
+            var clickPosition = GameSettings.MainCamera.ScreenToWorldPoint(Input.mousePosition);
 
             if (clickPosition.y > _validClickPosition)
             {
@@ -109,6 +106,7 @@ public class Mole : MonoBehaviour
                 _spriteRenderer.sprite = GameSettings.GameSettingsInstance.GetMoleSprite(true);
                 GameManager.GameManagerInstance.AddScore();
                 StopAllCoroutines();
+                StartCoroutine(_parent.AddingScoreRoutine());
                 StartCoroutine(QuickHide());
             }
         }

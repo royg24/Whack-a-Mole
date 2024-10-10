@@ -1155,7 +1155,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 140, y: 0}
+  m_AnchoredPosition: {x: 148, y: 0}
   m_SizeDelta: {x: 170, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &521147208
@@ -1284,6 +1284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dda9dfefde768649b0b74647f23e4a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCanvas: {fileID: 514088904}
   startButton: {fileID: 730919242}
   restartButton: {fileID: 1765413324}
   menuButton: {fileID: 783687452}
@@ -1297,6 +1298,7 @@ MonoBehaviour:
   difficultyHeader: {fileID: 371302268}
   scoreHeader: {fileID: 1555814483}
   scoreText: {fileID: 1625160186}
+  scoreAddingTextPrefab: {fileID: 1010488049952124245, guid: d3502fcd74d66fa4ead5dbb342e984d2, type: 3}
   timeHeader: {fileID: 1803314194}
   timeText: {fileID: 1092217213}
   highScoreHeader: {fileID: 416256283}
@@ -2463,7 +2465,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 70, y: -14.9999695}
+  m_AnchoredPosition: {x: 70, y: -14.999954}
   m_SizeDelta: {x: 50, y: -258}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1272646913
@@ -2769,7 +2771,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -110, y: 0}
+  m_AnchoredPosition: {x: -104.999985, y: 0}
   m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1468557191

@@ -1,11 +1,15 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using TMPro;
+using Unity.Mathematics;
 
 public class MoleHole : MonoBehaviour
 {
     private Mole _mole;
     private Vector3 _startPosition;
+    private TextMeshProUGUI _scoreAddingText;
+    private CanvasGroup _canvasGroup;
     [SerializeField] private Mole molePrefab;
 
 
@@ -13,6 +17,8 @@ public class MoleHole : MonoBehaviour
     {
         _mole = GetComponentInChildren<Mole>();
         _startPosition = transform.position;
+        InitScoreAddingTexts();
+        InitCanvasGroup();
 
         if (_mole == null)
         {
@@ -20,6 +26,60 @@ public class MoleHole : MonoBehaviour
             _mole.transform.SetParent(transform);
             _mole.transform.localPosition = Vector3.zero;
         }
+    }
+
+    private void InitScoreAddingTexts()
+    {
+        _scoreAddingText = Instantiate(UIManager.UIManagerInstance.scoreAddingTextPrefab, 
+            UIManager.UIManagerInstance.GetCanvas().transform, false);
+
+        ChangeScoreAddingTextPosition();
+        _scoreAddingText.gameObject.SetActive(true);
+        _scoreAddingText.text = GameSettings.Plus + GameSettings.ScoreIntervals;
+    }
+
+    private void InitCanvasGroup()
+    {
+        _canvasGroup = _scoreAddingText.GetComponent<CanvasGroup>();
+        _canvasGroup.alpha = 0;
+    }
+
+    private void ChangeScoreAddingTextPosition()
+    {
+        Vector3 screenPosition = RectTransformUtility.WorldToScreenPoint(GameSettings.MainCamera, 
+            transform.position + 
+            GameSettings.GameSettingsInstance.ScoreAddingAdditionToPosition);
+        _scoreAddingText.transform.position = screenPosition;
+    }
+
+    public IEnumerator AddingScoreRoutine()
+    {
+        if (GameManager.GameManagerInstance.IsDifficultyHard())
+            ChangeScoreAddingTextPosition();
+        
+
+        var growthDuration = GameSettings.ScoreAddingDuration / 4;
+
+        yield return StartCoroutine(OpacityRoutine(GameSettings.MinOpacity, 
+            GameSettings.MaxOpacity, 2 * growthDuration, growthDuration));
+
+        yield return new WaitForSeconds(growthDuration);
+
+        yield return StartCoroutine(OpacityRoutine(GameSettings.MaxOpacity, 
+            GameSettings.MinOpacity, growthDuration, growthDuration));
+
+    }
+
+    private IEnumerator OpacityRoutine(float startOpacity, float endOpacity, float duration, float normalize)
+    {
+        for (var t = 0f; t < duration; t += Time.deltaTime)
+        {
+            var normalizedTime = t / normalize;
+            _canvasGroup.alpha = Mathf.Lerp(startOpacity, endOpacity, normalizedTime);
+            yield return null;
+        }
+
+        _canvasGroup.alpha = endOpacity;
     }
 
     public void ActivateMoleHole()
@@ -35,6 +95,7 @@ public class MoleHole : MonoBehaviour
     public void InitializeMoleHole()
     {
         transform.position = _startPosition;
+        _canvasGroup.alpha = 0;
         _mole.InitializeMole();
     }
 

@@ -62,6 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d0b2ecc5862954e9bbb1cf8e3d5393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreAddingText: {fileID: 1010488049952124245, guid: d3502fcd74d66fa4ead5dbb342e984d2, type: 3}
   molePrefab: {fileID: 7830208264464885425, guid: c9dd5f720d6ba59439a404a1951ce0fa, type: 3}
 --- !u!212 &-8525584461839821615
 SpriteRenderer:

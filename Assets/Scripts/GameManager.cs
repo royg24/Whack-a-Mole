@@ -127,7 +127,7 @@ public class GameManager : Singleton<GameManager>
                 _timer += Time.deltaTime;
                 if (_timer >= GameSettings.DelayDuration)
                 {
-                    if(_gameDifficulty == EDifficulty.Hard)
+                    if(IsDifficultyHard())
                         MoveRandomMoleHoleToSide();
                     ActivateRandomMoleHole();
                     _timer = 0f;
@@ -217,6 +217,11 @@ public class GameManager : Singleton<GameManager>
         PlayerPrefs.SetInt( _gameDifficulty + GameSettings.HighScoreData, _highScore);
         PlayerPrefs.Save();
         UIManager.UIManagerInstance.UpdateHighScoreText(_highScore);
+    }
+
+    public bool IsDifficultyHard()
+    {
+        return _gameDifficulty == EDifficulty.Hard;
     }
 
     public void ExitGame()
