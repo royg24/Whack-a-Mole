@@ -219,6 +219,9 @@ public class GameManager : Singleton<GameManager>
 
     private void PauseGame()
     {
+        if(!_playing)
+            return;
+
         IsPause = true;
         Time.timeScale = 0f;
         UIManager.UIManagerInstance.ChangePauseUIVisibility(true);
