@@ -6,16 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="4c283104-8f88-494d-9368-6cd32dcc6e34" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Whack-a-Mole/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Whack-a-Mole/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/MoleHolePrefab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/MoleHolePrefab.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/MolePrefab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/MolePrefab.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameSettings.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Mole.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Mole.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MoleHole.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MoleHole.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerCursorController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerCursorController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UIManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/wicked-mouse.regular SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/wicked-mouse.regular SDF.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +141,7 @@
       <workItem from="1727082656272" duration="1525000" />
       <workItem from="1727084218769" duration="3403000" />
       <workItem from="1728282302386" duration="19336000" />
-      <workItem from="1728371866046" duration="32000000" />
+      <workItem from="1728371866046" duration="34949000" />
     </task>
     <servers />
   </component>
@@ -179,13 +174,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/UIManager.cs</url>
-          <line>195</line>
+          <line>202</line>
           <properties documentPath="C:\Users\Admin\Whack-a-Mole\Assets\Scripts\UIManager.cs" containingFunctionPresentation="Method 'OnToggleValueChanged'">
             <startOffsets>
-              <option value="5796" />
+              <option value="6078" />
             </startOffsets>
             <endOffsets>
-              <option value="5805" />
+              <option value="6087" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="2" />

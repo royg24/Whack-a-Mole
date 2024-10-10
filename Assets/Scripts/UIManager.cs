@@ -18,6 +18,8 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject startButton;
     [SerializeField] private GameObject restartButton;
     [SerializeField] private GameObject menuButton;
+    [SerializeField] private GameObject pauseButton;
+    [SerializeField] private GameObject resumeButton;
 
     [Header("Backgrounds")] 
     [SerializeField] private Image backgroundImage;
@@ -40,6 +42,9 @@ public class UIManager : Singleton<UIManager>
     [Header("High Score Texts")]
     [SerializeField] private TextMeshProUGUI highScoreHeader;
     [SerializeField] private TextMeshProUGUI highScoreText;
+
+    [Header("Pause Texts")] 
+    [SerializeField] private TextMeshProUGUI pauseText;
 
     [Header("End Game Texts")]
     [SerializeField] private TextMeshProUGUI endScoreHeader;
@@ -88,6 +93,7 @@ public class UIManager : Singleton<UIManager>
         menuButton.SetActive(false);
         ChangeGameUIVisibility(false);
         ChangeEndUIVisibility(false);
+        ChangePauseUIVisibility(false);
     }
 
     // Appears only in start menu
@@ -108,6 +114,7 @@ public class UIManager : Singleton<UIManager>
         timeHeader.gameObject.SetActive(value);
         timeText.gameObject.SetActive(value);
         difficultyHeader.gameObject.SetActive(value);
+        pauseButton.gameObject.SetActive(value);
     }
 
     // Appears in both start and end
@@ -223,6 +230,12 @@ public class UIManager : Singleton<UIManager>
     public void SetDifficultyHeader(EDifficulty difficulty)
     {
         difficultyHeader.text = difficulty.ToString();
+    }
+
+    public void ChangePauseUIVisibility(bool value)
+    {
+        pauseText.gameObject.SetActive(value);
+        resumeButton.SetActive(value);
     }
 
 }

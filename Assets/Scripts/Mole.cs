@@ -96,7 +96,7 @@ public class Mole : MonoBehaviour
     private void OnMouseDown()
     {
         // Only proceed if the mole is hittable
-        if (_hittable)
+        if (_hittable && !GameManager.IsPause)
         {
             var clickPosition = GameSettings.MainCamera.ScreenToWorldPoint(Input.mousePosition);
 

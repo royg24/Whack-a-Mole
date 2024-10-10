@@ -8,6 +8,7 @@ using Enums;
 public class GameManager : Singleton<GameManager>
 {
     public static GameManager GameManagerInstance { get; private set; }
+    public static bool IsPause { get; private set; }
     private List<MoleHole> _moleHoles;
     [SerializeField] private MoleHole moleHolePrefab;
     private HashSet<MoleHole> _activeMoleHoles;
@@ -108,32 +109,36 @@ public class GameManager : Singleton<GameManager>
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ExitGame();
+            PauseGame();
         }
-        if (Input.GetMouseButtonDown(0))
-            GameSettings.GameSettingsInstance.PlayHammerSound();
-        if (_playing)
+
+        if (!IsPause)
         {
-            _timeRemaining -= Time.deltaTime;
-            UIManager.UIManagerInstance.UpdateTime(_timeRemaining);
+            if (Input.GetMouseButtonDown(0))
+                GameSettings.GameSettingsInstance.PlayHammerSound();
+            if (_playing)
+            {
+                _timeRemaining -= Time.deltaTime;
+                UIManager.UIManagerInstance.UpdateTime(_timeRemaining);
 
-            if (_timeRemaining <= 0)
-            {
-                _timeRemaining = 0;
-                GameOver();
-            }
-            else
-            {
-                _timer += Time.deltaTime;
-                if (_timer >= GameSettings.DelayDuration)
+                if (_timeRemaining <= 0)
                 {
-                    if(IsDifficultyHard())
-                        MoveRandomMoleHoleToSide();
-                    ActivateRandomMoleHole();
-                    _timer = 0f;
+                    _timeRemaining = 0;
+                    GameOver();
                 }
+                else
+                {
+                    _timer += Time.deltaTime;
+                    if (_timer >= GameSettings.DelayDuration)
+                    {
+                        if (IsDifficultyHard())
+                            MoveRandomMoleHoleToSide();
+                        ActivateRandomMoleHole();
+                        _timer = 0f;
+                    }
 
-                UIManager.UIManagerInstance.UpdateScoreText(_score);
+                    UIManager.UIManagerInstance.UpdateScoreText(_score);
+                }
             }
         }
     }
@@ -210,6 +215,20 @@ public class GameManager : Singleton<GameManager>
     public void StopDelay()
     {
         _timer = GameSettings.DelayDuration;
+    }
+
+    private void PauseGame()
+    {
+        IsPause = true;
+        Time.timeScale = 0f;
+        UIManager.UIManagerInstance.ChangePauseUIVisibility(true);
+    }
+
+    private void ResumeGame()
+    {
+        IsPause = false;
+        Time.timeScale = 1f;
+        UIManager.UIManagerInstance.ChangePauseUIVisibility(false);
     }
 
     private void UpdateHighScore()

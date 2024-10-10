@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class PlayerCursorController : Singleton<PlayerCursorController>
 {
@@ -38,7 +37,9 @@ public class PlayerCursorController : Singleton<PlayerCursorController>
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (GameManager.IsPause)
+            _rotationAngle = 0f;
+        else if (Input.GetMouseButtonDown(0))
         {
             StartCoroutine(RotateCursor());
         }
