@@ -228,12 +228,33 @@ public class GameManager : Singleton<GameManager>
         UIManager.UIManagerInstance.ChangePauseUIVisibility(true);
     }
 
+    public void OpenInformation()
+    {
+        IsPause = true;
+        Time.timeScale = 0f;
+        UIManager.UIManagerInstance.ShowGameInformation(true);
+
+        if (!_playing)
+        {
+            UIManager.UIManagerInstance.ChangeStartUIVisibility(false);
+            UIManager.UIManagerInstance.ChangeHighScoreVisibility(false);
+        }
+    }
+
     private void ResumeGame()
     {
         IsPause = false;
         Time.timeScale = 1f;
         UIManager.UIManagerInstance.ChangePauseUIVisibility(false);
+        UIManager.UIManagerInstance.ShowGameInformation(false);
+        
+        if (!_playing)
+        {
+            UIManager.UIManagerInstance.ChangeStartUIVisibility(true);
+            UIManager.UIManagerInstance.ChangeHighScoreVisibility(true);
+        }
     }
+    
 
     private void UpdateHighScore()
     {

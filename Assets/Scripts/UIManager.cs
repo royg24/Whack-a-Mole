@@ -20,11 +20,13 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject menuButton;
     [SerializeField] private GameObject pauseButton;
     [SerializeField] private GameObject resumeButton;
+    [SerializeField] private GameObject informationButton;
 
     [Header("Backgrounds")] 
     [SerializeField] private Image backgroundImage;
     [SerializeField] private Texture2D startBackgroundImage;
     [SerializeField] private Texture2D gameBackgroundImage;
+    [SerializeField] private Image gameInformationImage;
 
     [Header("Toggles")]
     [SerializeField] private Toggle[] difficultyToggles;
@@ -94,6 +96,13 @@ public class UIManager : Singleton<UIManager>
         ChangeGameUIVisibility(false);
         ChangeEndUIVisibility(false);
         ChangePauseUIVisibility(false);
+        ShowGameInformation(false);
+    }
+
+    public void ShowGameInformation(bool value)
+    {
+        gameInformationImage.gameObject.SetActive(value);
+        resumeButton.SetActive(value);
     }
 
     // Appears only in start menu
@@ -118,7 +127,7 @@ public class UIManager : Singleton<UIManager>
     }
 
     // Appears in both start and end
-    private void ChangeHighScoreVisibility(bool value)
+    public void ChangeHighScoreVisibility(bool value)
     {
         highScoreText.gameObject.SetActive(value);
         highScoreHeader.gameObject.SetActive(value);
@@ -143,6 +152,7 @@ public class UIManager : Singleton<UIManager>
         endScoreHeader.gameObject.SetActive(value);
         endScoreText.gameObject.SetActive(value);
         newHighScoreText.gameObject.SetActive(value);
+        informationButton.gameObject.SetActive(!value);
     }
 
     public void RestartUI(int highScore, float startingTime)
@@ -237,5 +247,4 @@ public class UIManager : Singleton<UIManager>
         pauseText.gameObject.SetActive(value);
         resumeButton.SetActive(value);
     }
-
 }
