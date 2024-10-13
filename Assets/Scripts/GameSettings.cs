@@ -1,5 +1,6 @@
 using Enums;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GameSettings : Singleton<GameSettings>
 {
@@ -7,8 +8,10 @@ public class GameSettings : Singleton<GameSettings>
     public static Camera MainCamera { get; private set; }
     public const string HighScoreData = " High Score";
     public const string Plus = "+";
-    public const float StartingTime = 10f;
-    public const int ScoreIntervals = 10;
+    public const float StartingTime = 12f;
+    public const int GoodScoreIntervals = 20;
+    public const int RegularScoreIntervals = 10;
+    public const int BadScoreIntervals = -10;
     public const float HorizontalIntervals = 4f;
     public const float VerticalIntervals = 2.5f;
     public const float EndDelayDuration = 4f;
@@ -34,10 +37,21 @@ public class GameSettings : Singleton<GameSettings>
     public Vector3 BoxOffsetHidden { get; private set; }
     public Vector3 BoxSizeHidden { get; private set; }
 
+    [FormerlySerializedAs("mole")]
     [Header("Sprites")]
-    [SerializeField] private Sprite mole;
-    [SerializeField] private Sprite hurtMole;
+    [SerializeField] private Sprite regularMole;
+    [FormerlySerializedAs("hurtMole")] [SerializeField] private Sprite regularHurtMole;
+    [SerializeField] private Sprite goodMole;
+    [SerializeField] private Sprite goodHurtMole;
+    [SerializeField] private Sprite badMole;
+    [SerializeField] private Sprite badHurtMole;
     [SerializeField] private Sprite hammer;
+    public Sprite RegularMole => regularMole;
+    public Sprite RegularHurtMole => regularHurtMole;
+    public Sprite GoodMole => goodMole;
+    public Sprite GoodHurtMole => goodHurtMole;
+    public Sprite BadMole => badMole;
+    public Sprite BadHurtMole => badHurtMole;
 
 
     [Header("Audio")]
@@ -133,11 +147,6 @@ public class GameSettings : Singleton<GameSettings>
     public void PlayHighScoreSound()
     {
         PlayShortSound(newHighScoreSound);
-    }
-
-    public Sprite GetMoleSprite(bool hurt)
-    {
-        return hurt ? hurtMole : mole;
     }
 
     public Sprite GetHammer()

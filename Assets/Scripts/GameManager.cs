@@ -177,9 +177,9 @@ public class GameManager : Singleton<GameManager>
         _activeMoleHoles.Remove(moleHole);
     }
 
-    public void AddScore()
+    public void AddScore(int scoreToAdd)
     {
-        _score += GameSettings.ScoreIntervals;
+        _score += scoreToAdd;
 
         if (_score >= _highScore)
         {

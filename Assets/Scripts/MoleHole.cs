@@ -35,7 +35,7 @@ public class MoleHole : MonoBehaviour
 
         ChangeScoreAddingTextPosition();
         _scoreAddingText.gameObject.SetActive(true);
-        _scoreAddingText.text = GameSettings.Plus + GameSettings.ScoreIntervals;
+        _scoreAddingText.text = GameSettings.Plus + _mole.ScoreIntervals;
     }
 
     private void InitCanvasGroup()
@@ -90,6 +90,11 @@ public class MoleHole : MonoBehaviour
     public void InactivateMole()
     {
         GameManager.GameManagerInstance.InactivateMoleHole(this);
+    }
+
+    public void SelectMoleType()
+    {
+        _mole.SelectRandomMoleType();
     }
 
     public void InitializeMoleHole()

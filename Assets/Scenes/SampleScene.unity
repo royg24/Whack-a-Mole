@@ -364,6 +364,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mole: {fileID: 21300000, guid: 5c3ee02557a88d2408de16339ce823f2, type: 3}
   hurtMole: {fileID: 21300000, guid: 7d748bab9a3b7cd4aa8ef28d8eb1cf47, type: 3}
+  goodMole: {fileID: 21300000, guid: 475cd2b9db554d6489a1d739d2deefe2, type: 3}
+  goodHurtMole: {fileID: 21300000, guid: c889a45eb2171ea41b2854d8a57839b0, type: 3}
+  badMole: {fileID: 21300000, guid: 589a55a0c4bf9634e8f6ae600e20d5aa, type: 3}
+  badHurtMole: {fileID: 21300000, guid: 9eb274ca1f3be1f45b7900fca6516de4, type: 3}
   hammer: {fileID: 21300000, guid: 3624d73505c7b97458d04a98e083a377, type: 3}
   gameAudioSource: {fileID: 202240906}
   shortAudioSource: {fileID: 202240907}
@@ -651,8 +655,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4284495412
+  m_fontColor: {r: 0.20291914, g: 0.2133198, b: 0.3773585, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1496,7 +1500,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -69.13202, y: 2.6161957}
+  m_AnchoredPosition: {x: -69.13202, y: 2.616211}
   m_SizeDelta: {x: 69.1325, y: 65.5383}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &538929159
@@ -2869,7 +2873,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 70, y: -14.999954}
+  m_AnchoredPosition: {x: 70, y: -14.999939}
   m_SizeDelta: {x: 50, y: -258}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1272646913

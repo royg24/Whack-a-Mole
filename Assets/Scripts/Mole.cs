@@ -11,12 +11,15 @@ public class Mole : MonoBehaviour
     private Vector3 _boxSize;
     private Vector3 _boxOffsetHidden;
     private Vector3 _boxSizeHidden;
-
+    
     private MoleHole _parent;
     private float _validClickPosition;
     private SpriteRenderer _spriteRenderer;
     private BoxCollider2D _boxCollider2D;
     private bool _hittable = true;
+    private Sprite mole;
+    private Sprite hurtMole;
+    public int ScoreIntervals { get; private set; }
 
     private void Awake()
     {
@@ -32,10 +35,12 @@ public class Mole : MonoBehaviour
         _boxSizeHidden = GameSettings.GameSettingsInstance.BoxSizeHidden;
         _validClickPosition = _parent.FindBottomY() + GameSettings.HoleSize;
         InitializeMole();
+        ChangeToRegularMole();
     }
 
     public void ActivateMole()
     {
+        SelectRandomMoleType();
         StartCoroutine(ShowHide());
     }
 
@@ -77,6 +82,50 @@ public class Mole : MonoBehaviour
         _boxCollider2D.size = size;
     }
 
+    public void SelectRandomMoleType()
+    {
+        var moleTypeIndex = Random.Range(0, 3);
+
+        switch (moleTypeIndex)
+        {
+            case 0:
+                ChangeToRegularMole();
+                break;
+            case 1:
+                ChangeToGoodMole();
+                break;
+            case 2:
+                ChangeToBadMole();
+                break;
+        }
+    }
+
+    private void ChangeToRegularMole()
+    {
+        mole = GameSettings.GameSettingsInstance.RegularMole;
+        hurtMole = GameSettings.GameSettingsInstance.RegularHurtMole;
+        ScoreIntervals = GameSettings.RegularScoreIntervals;
+    }
+    
+    private void ChangeToGoodMole()
+    {
+        mole = GameSettings.GameSettingsInstance.GoodMole;
+        hurtMole = GameSettings.GameSettingsInstance.GoodHurtMole;
+        ScoreIntervals = GameSettings.GoodScoreIntervals;
+    }
+    
+    private void ChangeToBadMole()
+    {
+        mole = GameSettings.GameSettingsInstance.BadMole;
+        hurtMole = GameSettings.GameSettingsInstance.BadHurtMole;
+        ScoreIntervals = GameSettings.BadScoreIntervals;
+    }
+
+    private Sprite GetMoleSprite(bool hurt)
+    {
+        return hurt ? hurtMole : mole;
+    }
+
     private IEnumerator QuickHide()
     {
         GameSettings.GameSettingsInstance.PlayHitSound();
@@ -87,7 +136,7 @@ public class Mole : MonoBehaviour
             yield return StartCoroutine(ShowHideLoop(transform.localPosition, _startPosition, 
                 GameSettings.GameSettingsInstance.QuickHideDuration, 
                 _boxOffset, _boxOffsetHidden, _boxSize, _boxSizeHidden));
-            _spriteRenderer.sprite = GameSettings.GameSettingsInstance.GetMoleSprite(false);
+            _spriteRenderer.sprite = GetMoleSprite(false);
             _hittable = true;
             _parent.InactivateMole();
             GameManager.GameManagerInstance.StopDelay();
@@ -103,8 +152,8 @@ public class Mole : MonoBehaviour
             if (clickPosition.y > _validClickPosition)
             {
                 _hittable = false;
-                _spriteRenderer.sprite = GameSettings.GameSettingsInstance.GetMoleSprite(true);
-                GameManager.GameManagerInstance.AddScore();
+                _spriteRenderer.sprite = GetMoleSprite(true);
+                GameManager.GameManagerInstance.AddScore(ScoreIntervals);
                 StopAllCoroutines();
                 StartCoroutine(_parent.AddingScoreRoutine());
                 StartCoroutine(QuickHide());
@@ -115,7 +164,7 @@ public class Mole : MonoBehaviour
     public void InitializeMole()
     {
         transform.localPosition = _startPosition;
-        _spriteRenderer.sprite = GameSettings.GameSettingsInstance.GetMoleSprite(false);
+        _spriteRenderer.sprite = GetMoleSprite(false);
         _boxCollider2D.offset = _boxOffsetHidden;
         _boxCollider2D.size = _boxSizeHidden;
         _hittable = true;
