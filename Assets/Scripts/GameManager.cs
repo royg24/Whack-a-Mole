@@ -4,16 +4,17 @@ using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using Enums;
+using UnityEngine.Serialization;
 
 public class GameManager : Singleton<GameManager>
 {
     public static GameManager GameManagerInstance { get; private set; }
     public static bool IsPause { get; private set; }
+    public EDifficulty GameDifficulty { get; private set; } = EDifficulty.Medium;
     private List<MoleHole> _moleHoles;
     [SerializeField] private MoleHole moleHolePrefab;
     private HashSet<MoleHole> _activeMoleHoles;
     private HashSet<MoleHole> _movingMoleHoles;
-    private EDifficulty _gameDifficulty = EDifficulty.Medium;
     private float _timeRemaining;
     private float _timer;
     private int _score;
@@ -44,7 +45,7 @@ public class GameManager : Singleton<GameManager>
     {
         UIManager.UIManagerInstance.StartUI();
         UIManager.UIManagerInstance.ChangeBackgroundToStart();
-        _highScore = PlayerPrefs.GetInt(_gameDifficulty + GameSettings.HighScoreData, 0);
+        _highScore = PlayerPrefs.GetInt(GameDifficulty + GameSettings.HighScoreData, 0);
         UpdateHighScore();
     }
 
@@ -58,7 +59,7 @@ public class GameManager : Singleton<GameManager>
             CreateMoleHoles();
         }
         SetGameDifficulty();
-        GameSettings.GameSettingsInstance.SetDifficultySettings(_gameDifficulty);
+        GameSettings.GameSettingsInstance.SetDifficultySettings(GameDifficulty);
         UIManager.UIManagerInstance.ChangeStartUIVisibility(false);
         RestartGame(); 
     }
@@ -66,7 +67,7 @@ public class GameManager : Singleton<GameManager>
     public void RestartGame()
     {
         UIManager.UIManagerInstance.ChangeBackgroundToGame();
-        _highScore = PlayerPrefs.GetInt( _gameDifficulty + GameSettings.HighScoreData, 0);
+        _highScore = PlayerPrefs.GetInt( GameDifficulty + GameSettings.HighScoreData, 0);
         _initialHighScore = _highScore;
         UIManager.UIManagerInstance.RestartUI(_highScore, GameSettings.StartingTime);
         ChangeMoleHolesVisibility(true);
@@ -84,7 +85,7 @@ public class GameManager : Singleton<GameManager>
         for (var i = 0; i < toggles.Length; i++)
         {
             if (toggles[i].isOn)
-                _gameDifficulty = (EDifficulty)i;
+                GameDifficulty = (EDifficulty)i;
         }
     }
 
@@ -131,7 +132,7 @@ public class GameManager : Singleton<GameManager>
                     _timer += Time.deltaTime;
                     if (_timer >= GameSettings.DelayDuration)
                     {
-                        if (IsDifficultyHard())
+                        if (GameDifficulty == EDifficulty.Hard)
                             MoveRandomMoleHoleToSide();
                         ActivateRandomMoleHole();
                         _timer = 0f;
@@ -236,14 +237,9 @@ public class GameManager : Singleton<GameManager>
 
     private void UpdateHighScore()
     {
-        PlayerPrefs.SetInt( _gameDifficulty + GameSettings.HighScoreData, _highScore);
+        PlayerPrefs.SetInt( GameDifficulty + GameSettings.HighScoreData, _highScore);
         PlayerPrefs.Save();
         UIManager.UIManagerInstance.UpdateHighScoreText(_highScore);
-    }
-
-    public bool IsDifficultyHard()
-    {
-        return _gameDifficulty == EDifficulty.Hard;
     }
 
     public void ExitGame()

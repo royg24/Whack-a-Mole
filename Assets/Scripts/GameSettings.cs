@@ -37,10 +37,9 @@ public class GameSettings : Singleton<GameSettings>
     public Vector3 BoxOffsetHidden { get; private set; }
     public Vector3 BoxSizeHidden { get; private set; }
 
-    [FormerlySerializedAs("mole")]
     [Header("Sprites")]
     [SerializeField] private Sprite regularMole;
-    [FormerlySerializedAs("hurtMole")] [SerializeField] private Sprite regularHurtMole;
+    [SerializeField] private Sprite regularHurtMole;
     [SerializeField] private Sprite goodMole;
     [SerializeField] private Sprite goodHurtMole;
     [SerializeField] private Sprite badMole;
@@ -53,6 +52,10 @@ public class GameSettings : Singleton<GameSettings>
     public Sprite BadMole => badMole;
     public Sprite BadHurtMole => badHurtMole;
 
+    // Colors of each mole type
+    public readonly Color RegularColor  =  new Color(0.65f, 0.16f, 0.16f);
+    public readonly Color GoodColor = Color.magenta;
+    public readonly Color BadColor = Color.black;
 
     [Header("Audio")]
     [SerializeField] private AudioSource gameAudioSource;

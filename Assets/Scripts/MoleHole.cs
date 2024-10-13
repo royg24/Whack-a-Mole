@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using Enums;
 using TMPro;
 using Unity.Mathematics;
 
@@ -54,7 +55,7 @@ public class MoleHole : MonoBehaviour
 
     public IEnumerator AddingScoreRoutine()
     {
-        if (GameManager.GameManagerInstance.IsDifficultyHard())
+        if (GameManager.GameManagerInstance.GameDifficulty == EDifficulty.Hard)
             ChangeScoreAddingTextPosition();
         
 
@@ -85,6 +86,9 @@ public class MoleHole : MonoBehaviour
     public void ActivateMoleHole()
     {
         _mole.ActivateMole();
+        _scoreAddingText.text =  _mole.ScoreIntervals >= 0 ? GameSettings.Plus : string.Empty;
+        _scoreAddingText.text +=  _mole.ScoreIntervals;
+        _scoreAddingText.color = _mole.MoleColor;
     }
 
     public void InactivateMole()

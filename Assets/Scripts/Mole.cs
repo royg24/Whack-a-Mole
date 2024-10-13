@@ -1,6 +1,6 @@
 using System.Collections;
+using Enums;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Mole : MonoBehaviour
 {
@@ -17,9 +17,10 @@ public class Mole : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private BoxCollider2D _boxCollider2D;
     private bool _hittable = true;
-    private Sprite mole;
-    private Sprite hurtMole;
+    private Sprite _mole;
+    private Sprite _hurtMole;
     public int ScoreIntervals { get; private set; }
+    public Color MoleColor { get; private set; }
 
     private void Awake()
     {
@@ -84,46 +85,77 @@ public class Mole : MonoBehaviour
 
     public void SelectRandomMoleType()
     {
-        var moleTypeIndex = Random.Range(0, 3);
+        var moleTypeIndex = Random.Range(0, 6);
+        var difficulty = GameManager.GameManagerInstance.GameDifficulty;
 
-        switch (moleTypeIndex)
+        switch (difficulty)
         {
-            case 0:
-                ChangeToRegularMole();
+            case EDifficulty.Easy:
+                ChangeMoleInEasy(moleTypeIndex);
                 break;
-            case 1:
-                ChangeToGoodMole();
+            case EDifficulty.Medium:
+                ChangeMoleInMedium(moleTypeIndex);
                 break;
-            case 2:
-                ChangeToBadMole();
+            case EDifficulty.Hard:
+                ChangeMoleInHard(moleTypeIndex);
                 break;
         }
+        _spriteRenderer.sprite = _mole;
     }
 
+    private void ChangeMoleInEasy(int index)
+    {
+        if (index < 4)
+            ChangeToRegularMole();
+        else
+            ChangeToGoodMole();
+    }
+
+    private void ChangeMoleInMedium(int index)
+    {
+         if(index < 3)
+             ChangeToRegularMole();
+         else if (index < 4)
+             ChangeToGoodMole();
+         else
+             ChangeToBadMole();
+    }
+    private void ChangeMoleInHard(int index)
+    {
+        if(index < 2)
+            ChangeToRegularMole();
+        else if (index < 4)
+            ChangeToGoodMole();
+        else
+            ChangeToBadMole();
+    }
     private void ChangeToRegularMole()
     {
-        mole = GameSettings.GameSettingsInstance.RegularMole;
-        hurtMole = GameSettings.GameSettingsInstance.RegularHurtMole;
+        _mole = GameSettings.GameSettingsInstance.RegularMole;
+        _hurtMole = GameSettings.GameSettingsInstance.RegularHurtMole;
         ScoreIntervals = GameSettings.RegularScoreIntervals;
+        MoleColor = GameSettings.GameSettingsInstance.RegularColor;
     }
     
     private void ChangeToGoodMole()
     {
-        mole = GameSettings.GameSettingsInstance.GoodMole;
-        hurtMole = GameSettings.GameSettingsInstance.GoodHurtMole;
+        _mole = GameSettings.GameSettingsInstance.GoodMole;
+        _hurtMole = GameSettings.GameSettingsInstance.GoodHurtMole;
         ScoreIntervals = GameSettings.GoodScoreIntervals;
+        MoleColor = GameSettings.GameSettingsInstance.GoodColor;
     }
     
     private void ChangeToBadMole()
     {
-        mole = GameSettings.GameSettingsInstance.BadMole;
-        hurtMole = GameSettings.GameSettingsInstance.BadHurtMole;
+        _mole = GameSettings.GameSettingsInstance.BadMole;
+        _hurtMole = GameSettings.GameSettingsInstance.BadHurtMole;
         ScoreIntervals = GameSettings.BadScoreIntervals;
+        MoleColor = GameSettings.GameSettingsInstance.BadColor;
     }
 
     private Sprite GetMoleSprite(bool hurt)
     {
-        return hurt ? hurtMole : mole;
+        return hurt ? _hurtMole : _mole;
     }
 
     private IEnumerator QuickHide()
