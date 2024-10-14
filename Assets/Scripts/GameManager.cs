@@ -1,16 +1,16 @@
 using System.Collections.Generic;
-using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using Enums;
-using UnityEngine.Serialization;
+using System.Collections;
 
 public class GameManager : Singleton<GameManager>
 {
     public static GameManager GameManagerInstance { get; private set; }
     public static bool IsPause { get; private set; }
     public EDifficulty GameDifficulty { get; private set; } = EDifficulty.Medium;
+    public bool Playing { get; private set; }
     private List<MoleHole> _moleHoles;
     [SerializeField] private MoleHole moleHolePrefab;
     private HashSet<MoleHole> _activeMoleHoles;
@@ -20,7 +20,6 @@ public class GameManager : Singleton<GameManager>
     private int _score;
     private int _highScore;
     private int _initialHighScore;
-    private bool _playing;
     private bool _firstTimeStartingGame;
 
     public void Awake()
@@ -74,7 +73,7 @@ public class GameManager : Singleton<GameManager>
         _timeRemaining = GameSettings.StartingTime;
         _timer = 0f;
         _score = 0;
-        _playing = true;
+        Playing = true;
         _activeMoleHoles.Clear();
         _movingMoleHoles.Clear();
     }
@@ -117,7 +116,7 @@ public class GameManager : Singleton<GameManager>
         {
             if (Input.GetMouseButtonDown(0))
                 GameSettings.GameSettingsInstance.PlayHammerSound();
-            if (_playing)
+            if (Playing)
             {
                 _timeRemaining -= Time.deltaTime;
                 UIManager.UIManagerInstance.UpdateTime(_timeRemaining);
@@ -182,6 +181,9 @@ public class GameManager : Singleton<GameManager>
     {
         _score += scoreToAdd;
 
+        if (_score < 0)
+            _score = 0;
+
         if (_score >= _highScore)
         {
             _highScore = _score;
@@ -191,7 +193,7 @@ public class GameManager : Singleton<GameManager>
 
     private void GameOver()
     {
-        _playing = false;
+        Playing = false;
         UIManager.UIManagerInstance.SwitchGameModesUI(false);
         UIManager.UIManagerInstance.UpdateEndScoreText(_score, _highScore > _initialHighScore);
         ChangeMoleHolesVisibility(false);
@@ -220,41 +222,55 @@ public class GameManager : Singleton<GameManager>
 
     private void PauseGame()
     {
-        if(!_playing)
+        if(!Playing)
             return;
 
-        IsPause = true;
-        Time.timeScale = 0f;
+        ChangePauseMode(true, 0f);
         UIManager.UIManagerInstance.ChangePauseUIVisibility(true);
     }
 
     public void OpenInformation()
     {
-        IsPause = true;
-        Time.timeScale = 0f;
+        ChangePauseMode(true, 0f);
         UIManager.UIManagerInstance.ShowGameInformation(true);
 
-        if (!_playing)
+        if (!Playing)
         {
-            UIManager.UIManagerInstance.ChangeStartUIVisibility(false);
-            UIManager.UIManagerInstance.ChangeHighScoreVisibility(false);
+            UIManager.UIManagerInstance.ChangeStartMenuVisibility(Playing);
         }
     }
 
     private void ResumeGame()
     {
-        IsPause = false;
-        Time.timeScale = 1f;
+        ChangePauseMode(false, 1f);
         UIManager.UIManagerInstance.ChangePauseUIVisibility(false);
         UIManager.UIManagerInstance.ShowGameInformation(false);
         
-        if (!_playing)
+        if (!Playing)
         {
-            UIManager.UIManagerInstance.ChangeStartUIVisibility(true);
-            UIManager.UIManagerInstance.ChangeHighScoreVisibility(true);
+            UIManager.UIManagerInstance.ChangeStartMenuVisibility(!Playing);
         }
     }
-    
+
+    private void ChangePauseMode(bool pause, float scale)
+    {
+        IsPause = pause;
+        Time.timeScale = scale;
+    }
+
+    public void ResumeAndReturnToMenu()
+    {
+        StartCoroutine(ResumeAndReturnToMenuCoroutine());
+    }
+
+    private IEnumerator ResumeAndReturnToMenuCoroutine()
+    {
+        ResumeGame();
+        yield return new WaitForSeconds(GameSettings.PauseDelay);
+        GameOver();
+        StartMenu();
+    }
+
 
     private void UpdateHighScore()
     {

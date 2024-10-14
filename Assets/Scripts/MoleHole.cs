@@ -96,11 +96,6 @@ public class MoleHole : MonoBehaviour
         GameManager.GameManagerInstance.InactivateMoleHole(this);
     }
 
-    public void SelectMoleType()
-    {
-        _mole.SelectRandomMoleType();
-    }
-
     public void InitializeMoleHole()
     {
         transform.position = _startPosition;

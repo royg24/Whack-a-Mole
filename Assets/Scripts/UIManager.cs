@@ -1,26 +1,30 @@
-using System.Collections;
 using UnityEngine;
 using TMPro;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine.UI;
 using Enums;
 using UnityEngine.Serialization;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class UIManager : Singleton<UIManager>
 {
     public static UIManager UIManagerInstance { get; private set; }
+    private readonly Vector3 _resumeButtonPausePosition = new Vector3(27f, -74.57f, 0f);
+    private readonly Vector3 _resumeButtonInfoPosition = new Vector3(349f, -90f, 0f);
 
     [Header("Canvas")]
     [SerializeField] private Canvas mainCanvas;
 
     [Header("Buttons")]
-    [SerializeField] private GameObject startButton;
-    [SerializeField] private GameObject restartButton;
-    [SerializeField] private GameObject menuButton;
-    [SerializeField] private GameObject pauseButton;
-    [SerializeField] private GameObject resumeButton;
-    [SerializeField] private GameObject informationButton;
+    [SerializeField] private Button startButton;
+    [SerializeField] private Button restartButton;
+    [SerializeField] private Button menuButton;
+    [SerializeField] private Button resumeButton;
+    [SerializeField] private Button smallMenuButton;
+    [SerializeField] private Button settingsButton;
+    [SerializeField] private Button smallSettingsButton;
+    [SerializeField] private Button informationButton;
+    [SerializeField] private Button pauseButton;
 
     [Header("Backgrounds")] 
     [SerializeField] private Image backgroundImage;
@@ -68,6 +72,8 @@ public class UIManager : Singleton<UIManager>
 
     public void Start()
     {
+        smallSettingsButton.onClick.AddListener(SettingsMenuManager.SettingsMenuManagerInstance.OpenSettingsMenu);
+        settingsButton.onClick.AddListener(SettingsMenuManager.SettingsMenuManagerInstance.OpenSettingsMenu);
         StartUI();
         InitToggles();
     }
@@ -91,8 +97,8 @@ public class UIManager : Singleton<UIManager>
     {
         ChangeStartUIVisibility(true);
         ChangeHighScoreVisibility(true);
-        restartButton.SetActive(false);
-        menuButton.SetActive(false);
+        restartButton.gameObject.SetActive(false);
+        menuButton.gameObject.SetActive(false);
         ChangeGameUIVisibility(false);
         ChangeEndUIVisibility(false);
         ChangePauseUIVisibility(false);
@@ -102,13 +108,16 @@ public class UIManager : Singleton<UIManager>
     public void ShowGameInformation(bool value)
     {
         gameInformationImage.gameObject.SetActive(value);
-        resumeButton.SetActive(value);
+        resumeButton.gameObject.SetActive(value);
+        resumeButton.transform.localPosition = _resumeButtonInfoPosition;
+        ChangeUpperButtonsActivation(!value);
     }
 
     // Appears only in start menu
     public void ChangeStartUIVisibility(bool value)
     { 
-        startButton.SetActive(value);
+        startButton.gameObject.SetActive(value);
+        settingsButton.gameObject.SetActive(value);
         foreach (var toggle in difficultyToggles)
         {
              toggle.gameObject.SetActive(value);
@@ -127,7 +136,7 @@ public class UIManager : Singleton<UIManager>
     }
 
     // Appears in both start and end
-    public void ChangeHighScoreVisibility(bool value)
+    private void ChangeHighScoreVisibility(bool value)
     {
         highScoreText.gameObject.SetActive(value);
         highScoreHeader.gameObject.SetActive(value);
@@ -146,13 +155,19 @@ public class UIManager : Singleton<UIManager>
     // Appears only in end menu
     private void ChangeEndUIVisibility(bool value)
     {
-        restartButton.SetActive(value);
-        menuButton.SetActive(value);
+        restartButton.gameObject.SetActive(value);
+        menuButton.gameObject.SetActive(value);
         gameOverText.SetActive(value);
         endScoreHeader.gameObject.SetActive(value);
         endScoreText.gameObject.SetActive(value);
         newHighScoreText.gameObject.SetActive(value);
         informationButton.gameObject.SetActive(!value);
+    }
+
+    public void ChangeStartMenuVisibility(bool value)
+    {
+        ChangeStartUIVisibility(value);
+        ChangeHighScoreVisibility(value);
     }
 
     public void RestartUI(int highScore, float startingTime)
@@ -244,7 +259,22 @@ public class UIManager : Singleton<UIManager>
 
     public void ChangePauseUIVisibility(bool value)
     {
+        ChangePauseMenuItemsVisibility(value);
+        ChangeUpperButtonsActivation(!value);
+    }
+
+    public void ChangePauseMenuItemsVisibility(bool value)
+    {
         pauseText.gameObject.SetActive(value);
-        resumeButton.SetActive(value);
+        resumeButton.gameObject.SetActive(value);
+        smallMenuButton.gameObject.SetActive(value);
+        smallSettingsButton.gameObject.SetActive(value);
+        resumeButton.transform.localPosition = _resumeButtonPausePosition;
+    }
+
+    public void ChangeUpperButtonsActivation(bool value)
+    {
+        pauseButton.interactable = value;
+        informationButton.interactable = value;
     }
 }

@@ -103,6 +103,12 @@ public class Mole : MonoBehaviour
         _spriteRenderer.sprite = _mole;
     }
 
+     /*
+        for easy difficulty the odds for each mole are:
+        regular: 67% (4/6)
+        good: 33% (2/6)
+        bad: 0%  (0/6)
+     */
     private void ChangeMoleInEasy(int index)
     {
         if (index < 4)
@@ -111,15 +117,28 @@ public class Mole : MonoBehaviour
             ChangeToGoodMole();
     }
 
+     /*
+        for medium difficulty the odds for each mole are:
+        regular: 50% (3/6)
+        good: 33% (2/6)
+        bad: 17%  (1/6)
+     */
     private void ChangeMoleInMedium(int index)
     {
          if(index < 3)
              ChangeToRegularMole();
-         else if (index < 4)
+         else if (index < 5)
              ChangeToGoodMole();
          else
              ChangeToBadMole();
     }
+
+     /*
+        for hard difficulty the odds for each mole are:
+        regular: 33% (2/6)
+        good: 33% (2/6)
+        bad: 33%  (2/6)
+     */
     private void ChangeMoleInHard(int index)
     {
         if(index < 2)

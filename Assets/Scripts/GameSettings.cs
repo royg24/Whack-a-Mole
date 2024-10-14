@@ -6,9 +6,13 @@ public class GameSettings : Singleton<GameSettings>
 {
     public static GameSettings GameSettingsInstance { get; private set; }
     public static Camera MainCamera { get; private set; }
+
     public const string HighScoreData = " High Score";
+    public const string MusicSliderData = "Music Value";
+    public const string SoundSliderData = "Sound Value";
     public const string Plus = "+";
-    public const float StartingTime = 12f;
+
+    public const float StartingTime = 60f;
     public const int GoodScoreIntervals = 20;
     public const int RegularScoreIntervals = 10;
     public const int BadScoreIntervals = -10;
@@ -18,6 +22,7 @@ public class GameSettings : Singleton<GameSettings>
     public const float HoleSize = 0.401789f;
     public const float SideMoveDuration = 1f;
     public const float ScoreAddingDuration = 0.6f;
+    public const float PauseDelay = 0.01f;
     public const int InitDifficulty = 1;
     public const float MinOpacity = 0f;
     public const float MaxOpacity = 1f;
@@ -57,12 +62,16 @@ public class GameSettings : Singleton<GameSettings>
     public readonly Color GoodColor = Color.magenta;
     public readonly Color BadColor = Color.black;
 
+    [FormerlySerializedAs("gameAudioSource")]
     [Header("Audio")]
-    [SerializeField] private AudioSource gameAudioSource;
-    [SerializeField] private AudioSource shortAudioSource;
+    [SerializeField] private AudioSource musicAudioSource;
+    [SerializeField] private AudioSource soundAudioSource;
     [SerializeField] private AudioClip hitSound;
     [SerializeField] private AudioClip hammerSound;
     [SerializeField] private AudioClip newHighScoreSound;
+
+    public AudioSource MusicAudioSource => musicAudioSource;
+    public AudioSource SoundAudioSource => soundAudioSource;
 
     public void Awake()
     {
@@ -79,7 +88,14 @@ public class GameSettings : Singleton<GameSettings>
 
     private void Start()
     {
-        gameAudioSource.Play();
+        SetVolumeValues();
+        musicAudioSource.Play();
+    }
+
+    private void SetVolumeValues()
+    {
+        musicAudioSource.volume = PlayerPrefs.GetFloat(MusicSliderData, 0.5f);
+        soundAudioSource.volume = PlayerPrefs.GetFloat(SoundSliderData, 0.5f);
     }
 
     public void SetDifficultySettings(EDifficulty difficulty)
@@ -105,7 +121,7 @@ public class GameSettings : Singleton<GameSettings>
         OutDuration = 1f;
         HurtDuration = 0.75f;
         QuickHideDuration = 0.6f;
-        DelayDuration = 0.2f;
+        DelayDuration = 0.4f;
     }
 
     private void SetMediumSettings()
@@ -114,7 +130,7 @@ public class GameSettings : Singleton<GameSettings>
         OutDuration = 0.6f;
         HurtDuration = 0.75f;
         QuickHideDuration = 0.3f;
-        DelayDuration = 0.4f;
+        DelayDuration = 0.5f;
     }
 
     private void SetHardSettings()
@@ -132,28 +148,35 @@ public class GameSettings : Singleton<GameSettings>
         BoxSizeHidden = new Vector3(x, 0f, 0f);
     }
 
-    private void PlayShortSound(AudioClip sound)
+    private void PlaySoundSound(AudioClip sound)
     {
-        shortAudioSource.PlayOneShot(sound);
+        if(SettingsMenuManager.SettingsMenuManagerInstance.SoundState)
+            soundAudioSource.PlayOneShot(sound);
     }
 
     public void PlayHammerSound()
     {
-       PlayShortSound(hammerSound);
+       PlaySoundSound(hammerSound);
     }
 
     public void PlayHitSound()
     {
-        PlayShortSound(hitSound);
+        PlaySoundSound(hitSound);
     }
 
     public void PlayHighScoreSound()
     {
-        PlayShortSound(newHighScoreSound);
+        PlaySoundSound(newHighScoreSound);
     }
 
     public Sprite GetHammer()
     {
         return hammer;
+    }
+
+    public void SaveSlidersValues()
+    {
+        PlayerPrefs.SetFloat(MusicSliderData, MusicAudioSource.volume);
+        PlayerPrefs.SetFloat(SoundSliderData, SoundAudioSource.volume);
     }
 }
