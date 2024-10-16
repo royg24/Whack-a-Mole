@@ -20,6 +20,6 @@ Whack-a-Mole is a fast-paced game where players must hit moles as they randomly 
 
 To get started with the Whack-a-Mole game:
 
-1. Download the repository as a ZIP: [Click here to download the ZIP](https://github.com/royg24/Whack-a-Mole/releases/download/2.0.0/Whack-a-Mole.zip)
+1. Download the repository as a ZIP: [Click here to download the ZIP](https://github.com/royg24/Whack-a-Mole/releases/latest/download/Whack-a-Mole.zip)
 2. Extract the ZIP file to your preferred location.
 3. Click the exe file and start to play!
